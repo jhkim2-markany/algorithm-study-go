@@ -224,6 +224,23 @@
 - **66 HLD** - 트리 경로 쿼리를 세그먼트 트리로 처리하는 기법을 배웁니다 (선수: 13, 25, 15)
 - **67 센트로이드 분할** - 트리를 분할하여 경로 쿼리를 효율적으로 처리합니다 (선수: 13, 18)
 
+## 7일 집중 학습 가이드
+
+HackerRank 코딩테스트 대비 7일 학습 플랜을 별도로 제공합니다.
+
+- 📋 [STUDY_GUIDE.md](./STUDY_GUIDE.md) - 학습 전략, 우선순위 선정 근거, 일별 목표
+- 📁 [weekly-prep/](./weekly-prep/) - Day 1~7 일별 학습 계획 및 추천 문제
+
+| 일차 | 주제 | 폴더 |
+| --- | --- | --- |
+| Day 1 | 구현, 브루트포스 | [day1-implementation-bruteforce](./weekly-prep/day1-implementation-bruteforce/) |
+| Day 2 | 그리디, 정렬, DP | [day2-greedy-sorting-dp](./weekly-prep/day2-greedy-sorting-dp/) |
+| Day 3 | BFS, DFS, 해시 | [day3-bfs-dfs-hash](./weekly-prep/day3-bfs-dfs-hash/) |
+| Day 4 | 문자열, 백트래킹, 누적합 | [day4-string-backtracking-prefixsum](./weekly-prep/day4-string-backtracking-prefixsum/) |
+| Day 5 | 이진탐색, 스택, 투포인터 | [day5-binarysearch-stack-twopointer](./weekly-prep/day5-binarysearch-stack-twopointer/) |
+| Day 6 | 힙, 기출 유형 | [day6-heap-possible](./weekly-prep/day6-heap-possible/) |
+| Day 7 | 복습, 모의고사 | [day7-review-mock](./weekly-prep/day7-review-mock/) |
+
 ## 각 폴더 구성
 
 모든 알고리즘 폴더는 동일한 구조를 따릅니다.
@@ -303,3 +320,10 @@ go run 01-implementation-and-simulation/problems/01-easy-matrix-rotation/solutio
 
 - Go 1.21 이상을 권장합니다
 - 모든 코드는 표준 라이브러리만 사용하므로 별도의 의존성 설치가 필요 없습니다
+
+## 향후 계획
+
+67개 알고리즘 유형이 모두 완성된 상태이며, 추가 확장을 계획하고 있습니다. 자세한 내용은 아래 문서를 참고하세요.
+
+- [TODO_NEW.md](./TODO_NEW.md) - Tier 1/2 이후 추가 알고리즘 후보
+- [todo.md](./todo.md) - 장기 확장 알고리즘 목록 (BOJ 분류 기준)
