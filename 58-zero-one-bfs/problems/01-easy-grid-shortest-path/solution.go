@@ -12,6 +12,21 @@ const INF = 1<<31 - 1
 var dr = [4]int{-1, 1, 0, 0}
 var dc = [4]int{0, 0, -1, 1}
 
+// gridShortestPath는 격자에서 (0,0)부터 (n-1,m-1)까지의 0-1 BFS 최단 경로를 구한다.
+// '.'은 비용 0, '#'은 비용 1로 이동하며, 덱 기반 0-1 BFS를 사용한다.
+//
+// [매개변수]
+//   - grid: 격자 정보 ('.'은 빈 칸, '#'은 벽)
+//   - n: 격자의 행 수
+//   - m: 격자의 열 수
+//
+// [반환값]
+//   - int: (0,0)에서 (n-1,m-1)까지의 최소 비용
+func gridShortestPath(grid []string, n, m int) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -27,53 +42,6 @@ func main() {
 		fmt.Fscan(reader, &grid[i])
 	}
 
-	// 거리 배열 초기화
-	dist := make([][]int, n)
-	for i := 0; i < n; i++ {
-		dist[i] = make([]int, m)
-		for j := 0; j < m; j++ {
-			dist[i][j] = INF
-		}
-	}
-	dist[0][0] = 0
-
-	// 덱을 슬라이스로 구현 (좌표를 r*m+c로 인코딩)
-	deque := []int{0}
-
-	for len(deque) > 0 {
-		// 덱 앞에서 꺼내기
-		cur := deque[0]
-		deque = deque[1:]
-		r, c := cur/m, cur%m
-
-		// 4방향 탐색
-		for d := 0; d < 4; d++ {
-			nr, nc := r+dr[d], c+dc[d]
-			if nr < 0 || nr >= n || nc < 0 || nc >= m {
-				continue // 범위 밖
-			}
-
-			// 빈 칸이면 비용 0, 벽이면 비용 1
-			w := 0
-			if grid[nr][nc] == '#' {
-				w = 1
-			}
-
-			newDist := dist[r][c] + w
-			if newDist < dist[nr][nc] {
-				dist[nr][nc] = newDist
-				encoded := nr*m + nc
-				if w == 0 {
-					// 가중치 0: 덱 앞에 추가
-					deque = append([]int{encoded}, deque...)
-				} else {
-					// 가중치 1: 덱 뒤에 추가
-					deque = append(deque, encoded)
-				}
-			}
-		}
-	}
-
-	// 출력: (N,M)까지의 최소 비용
-	fmt.Fprintln(writer, dist[n-1][m-1])
+	// 핵심 함수 호출
+	fmt.Fprintln(writer, gridShortestPath(grid, n, m))
 }

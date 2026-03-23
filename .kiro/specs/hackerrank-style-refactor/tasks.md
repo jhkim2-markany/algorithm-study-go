@@ -154,131 +154,131 @@
   - `go test ./validate/... -v -count=1` 실행하여 테스트 통과 확인
   - 문제 발생 시 사용자에게 질문
 
-- [ ] 8. 폴더 31~40 리팩토링
-  - [ ] 8.1 31-probability 리팩토링 (3개 문제)
+- [x] 8. 폴더 31~40 리팩토링
+  - [x] 8.1 31-probability 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.2 32-bitmask-dp 리팩토링 (3개 문제)
+  - [x] 8.2 32-bitmask-dp 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.3 33-maximum-flow 리팩토링 (3개 문제)
+  - [x] 8.3 33-maximum-flow 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.4 34-primality-test 리팩토링 (3개 문제)
+  - [x] 8.4 34-primality-test 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.5 35-offline-queries 리팩토링 (3개 문제)
+  - [x] 8.5 35-offline-queries 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.6 36-exponentiation-by-squaring 리팩토링 (3개 문제)
+  - [x] 8.6 36-exponentiation-by-squaring 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.7 37-knapsack 리팩토링 (3개 문제)
+  - [x] 8.7 37-knapsack 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.8 38-dag 리팩토링 (3개 문제)
+  - [x] 8.8 38-dag 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.9 39-coordinate-compression 리팩토링 (3개 문제)
+  - [x] 8.9 39-coordinate-compression 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 8.10 40-recursion 리팩토링 (3개 문제)
+  - [x] 8.10 40-recursion 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-- [ ] 9. 체크포인트 - 폴더 31~40 검증
+- [x] 9. 체크포인트 - 폴더 31~40 검증
   - `bash validate.sh` 실행하여 폴더 31~40의 구조 검증
   - `go test ./validate/... -v -count=1` 실행하여 테스트 통과 확인
   - 문제 발생 시 사용자에게 질문
 
-- [ ] 10. 폴더 41~53 리팩토링
-  - [ ] 10.1 41-euclidean-algorithm 리팩토링 (3개 문제)
+- [x] 10. 폴더 41~53 리팩토링
+  - [x] 10.1 41-euclidean-algorithm 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.2 42-convex-hull 리팩토링 (3개 문제)
+  - [x] 10.2 42-convex-hull 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.3 43-bipartite-matching 리팩토링 (3개 문제)
+  - [x] 10.3 43-bipartite-matching 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.4 44-sieve-of-eratosthenes 리팩토링 (3개 문제)
+  - [x] 10.4 44-sieve-of-eratosthenes 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.5 45-inclusion-exclusion 리팩토링 (3개 문제)
+  - [x] 10.5 45-inclusion-exclusion 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.6 46-lca 리팩토링 (3개 문제)
+  - [x] 10.6 46-lca 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.7 47-sparse-table 리팩토링 (3개 문제)
+  - [x] 10.7 47-sparse-table 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.8 48-hashing 리팩토링 (3개 문제)
+  - [x] 10.8 48-hashing 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.9 49-modular-inverse 리팩토링 (3개 문제)
+  - [x] 10.9 49-modular-inverse 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.10 50-floyd-warshall 리팩토링 (3개 문제)
+  - [x] 10.10 50-floyd-warshall 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.11 51-trie 리팩토링 (3개 문제)
+  - [x] 10.11 51-trie 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.12 52-deque 리팩토링 (3개 문제)
+  - [x] 10.12 52-deque 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 10.13 53-prime-factorization 리팩토링 (3개 문제)
+  - [x] 10.13 53-prime-factorization 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-- [ ] 11. 체크포인트 - 폴더 41~53 검증
+- [x] 11. 체크포인트 - 폴더 41~53 검증
   - `bash validate.sh` 실행하여 폴더 41~53의 구조 검증
   - `go test ./validate/... -v -count=1` 실행하여 테스트 통과 확인
   - 문제 발생 시 사용자에게 질문
 
-- [ ] 12. 폴더 54~67 리팩토링
-  - [ ] 12.1 54-tree-dp 리팩토링 (3개 문제)
+- [x] 12. 폴더 54~67 리팩토링
+  - [x] 12.1 54-tree-dp 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.2 55-lis 리팩토링 (3개 문제)
+  - [x] 12.2 55-lis 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.3 56-sqrt-decomposition 리팩토링 (3개 문제)
+  - [x] 12.3 56-sqrt-decomposition 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.4 57-meet-in-the-middle 리팩토링 (3개 문제)
+  - [x] 12.4 57-meet-in-the-middle 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.5 58-zero-one-bfs 리팩토링 (3개 문제)
+  - [x] 12.5 58-zero-one-bfs 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.6 59-flood-fill 리팩토링 (3개 문제)
+  - [x] 12.6 59-flood-fill 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.7 60-fft 리팩토링 (3개 문제)
+  - [x] 12.7 60-fft 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.8 61-ternary-search 리팩토링 (3개 문제)
+  - [x] 12.8 61-ternary-search 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.9 62-euler-tour 리팩토링 (3개 문제)
+  - [x] 12.9 62-euler-tour 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.10 63-mcmf 리팩토링 (3개 문제)
+  - [x] 12.10 63-mcmf 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.11 64-convex-hull-trick 리팩토링 (3개 문제)
+  - [x] 12.11 64-convex-hull-trick 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.12 65-gaussian-elimination 리팩토링 (3개 문제)
+  - [x] 12.12 65-gaussian-elimination 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.13 66-hld 리팩토링 (3개 문제)
+  - [x] 12.13 66-hld 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-  - [ ] 12.14 67-centroid-decomposition 리팩토링 (3개 문제)
+  - [x] 12.14 67-centroid-decomposition 리팩토링 (3개 문제)
     - _Requirements: 1.1~1.7, 2.1~2.6, 3.1~3.9, 5.1~5.3_
 
-- [ ] 13. 최종 체크포인트 - 전체 검증
+- [x] 13. 최종 체크포인트 - 전체 검증
   - `bash validate.sh` 실행하여 전체 67개 폴더 구조 검증
   - `go test ./validate/... -v -count=1` 실행하여 모든 테스트 통과 확인
   - 201개 문제 폴더 모두에 answer.go가 존재하고, solution.go가 빈 핵심 함수 패턴을 따르는지 최종 확인

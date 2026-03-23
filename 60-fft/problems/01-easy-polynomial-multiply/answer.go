@@ -63,9 +63,45 @@ func fft(a []complex128, invert bool) {
 //
 // [반환값]
 //   - []int: 두 다항식을 곱한 결과 다항식의 계수 배열
+//
+// [알고리즘 힌트]
+//
+//	두 다항식의 계수를 복소수 배열로 변환한 뒤, FFT로 주파수 영역으로 변환하고
+//	점별 곱셈(pointwise multiplication)을 수행한 후, IFFT로 역변환하면
+//	결과 다항식의 계수를 얻을 수 있다. 배열 크기는 2의 거듭제곱으로 맞춘다.
 func polyMultiply(a, b []int) []int {
-	// 여기에 코드를 작성하세요
-	return nil
+	resultLen := len(a) + len(b) - 1
+
+	// N을 2의 거듭제곱으로 올림
+	sz := 1
+	for sz < resultLen {
+		sz <<= 1
+	}
+
+	// 복소수 배열로 변환
+	fa := make([]complex128, sz)
+	fb := make([]complex128, sz)
+	for i := 0; i < len(a); i++ {
+		fa[i] = complex(float64(a[i]), 0)
+	}
+	for i := 0; i < len(b); i++ {
+		fb[i] = complex(float64(b[i]), 0)
+	}
+
+	// FFT → 점별 곱셈 → IFFT
+	fft(fa, false)
+	fft(fb, false)
+	for i := 0; i < sz; i++ {
+		fa[i] *= fb[i]
+	}
+	fft(fa, true)
+
+	// 결과를 정수 배열로 변환
+	result := make([]int, resultLen)
+	for i := 0; i < resultLen; i++ {
+		result[i] = int(math.Round(real(fa[i])))
+	}
+	return result
 }
 
 func main() {

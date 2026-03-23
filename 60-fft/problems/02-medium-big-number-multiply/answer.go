@@ -63,9 +63,66 @@ func fft(a []complex128, invert bool) {
 //
 // [반환값]
 //   - string: 두 수를 곱한 결과 문자열
+//
+// [알고리즘 힌트]
+//
+//	각 자릿수를 역순으로 다항식 계수로 변환한 뒤 FFT 곱셈을 수행한다.
+//	IFFT 결과를 정수로 반올림한 후, 낮은 자릿수부터 올림(carry) 처리를 하고
+//	선행 0을 제거하여 역순으로 문자열을 구성한다.
 func bigNumberMultiply(sa, sb string) string {
-	// 여기에 코드를 작성하세요
-	return ""
+	na, nb := len(sa), len(sb)
+	resultLen := na + nb - 1
+
+	sz := 1
+	for sz < na+nb {
+		sz <<= 1
+	}
+
+	// 복소수 배열 생성
+	fa := make([]complex128, sz)
+	fb := make([]complex128, sz)
+
+	// 문자열을 역순으로 복소수 배열에 저장
+	for i := 0; i < na; i++ {
+		fa[i] = complex(float64(sa[na-1-i]-'0'), 0)
+	}
+	for i := 0; i < nb; i++ {
+		fb[i] = complex(float64(sb[nb-1-i]-'0'), 0)
+	}
+
+	// FFT → 점별 곱셈 → IFFT
+	fft(fa, false)
+	fft(fb, false)
+	for i := 0; i < sz; i++ {
+		fa[i] *= fb[i]
+	}
+	fft(fa, true)
+
+	// 결과를 정수 배열로 변환하고 올림(carry) 처리
+	result := make([]int, resultLen+1)
+	for i := 0; i < resultLen; i++ {
+		result[i] += int(math.Round(real(fa[i])))
+	}
+
+	// 자릿수 올림 처리
+	for i := 0; i < len(result)-1; i++ {
+		if result[i] >= 10 {
+			result[i+1] += result[i] / 10
+			result[i] %= 10
+		}
+	}
+
+	// 선행 0 제거 후 역순 출력
+	top := len(result) - 1
+	for top > 0 && result[top] == 0 {
+		top--
+	}
+
+	buf := make([]byte, top+1)
+	for i := top; i >= 0; i-- {
+		buf[top-i] = byte(result[i]) + '0'
+	}
+	return string(buf)
 }
 
 func main() {

@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 )
 
@@ -40,7 +39,4 @@ func main() {
 
 	// 소수점 첫째 자리까지 출력
 	fmt.Fprintf(writer, "%.1f\n", area)
-
-	// math 패키지 사용을 위한 더미 참조
-	_ = math.Abs
 }

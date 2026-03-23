@@ -4,19 +4,43 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
-// processSetOperations는 비트마스크 집합 연산을 처리하여 최종 집합을 반환한다.
+// Operation은 비트마스크 집합 연산을 나타낸다
+type Operation struct {
+	Op       string
+	Operands []int
+}
+
+// processSetOperations는 비트마스크 집합 연산을 처리하여 최종 비트마스크를 반환한다.
 //
 // [매개변수]
 //   - n: 전체 집합 크기
-//   - operations: 연산 목록 (각 연산은 문자열 슬라이스)
+//   - operations: 연산 목록 (각 연산은 연산자와 피연산자를 포함)
 //
 // [반환값]
 //   - int: 최종 비트마스크 상태
-func processSetOperations(n int, operations [][]string) int {
+func processSetOperations(n int, operations []Operation) int {
 	// 여기에 코드를 작성하세요
 	return 0
+}
+
+// formatSet은 비트마스크를 집합 문자열로 변환한다
+func formatSet(mask, n int) string {
+	if mask == 0 {
+		return "empty"
+	}
+	result := ""
+	for i := 0; i < n; i++ {
+		if mask&(1<<i) != 0 {
+			if result != "" {
+				result += " "
+			}
+			result += strconv.Itoa(i + 1)
+		}
+	}
+	return result
 }
 
 func main() {
@@ -27,67 +51,32 @@ func main() {
 	var n, q int
 	fmt.Fscan(reader, &n, &q)
 
-	mask := 0
-
+	// 연산 목록 입력
+	operations := make([]Operation, q)
 	for i := 0; i < q; i++ {
 		var op string
 		fmt.Fscan(reader, &op)
 
 		switch op {
-		case "add":
+		case "add", "remove", "toggle":
 			var x int
 			fmt.Fscan(reader, &x)
-			mask |= 1 << (x - 1)
+			operations[i] = Operation{Op: op, Operands: []int{x}}
 
-		case "remove":
-			var x int
-			fmt.Fscan(reader, &x)
-			mask &^= 1 << (x - 1)
-
-		case "toggle":
-			var x int
-			fmt.Fscan(reader, &x)
-			mask ^= 1 << (x - 1)
-
-		case "union":
+		case "union", "intersect":
 			var k int
 			fmt.Fscan(reader, &k)
-			other := 0
+			operands := make([]int, k)
 			for j := 0; j < k; j++ {
-				var x int
-				fmt.Fscan(reader, &x)
-				other |= 1 << (x - 1)
+				fmt.Fscan(reader, &operands[j])
 			}
-			mask |= other
-
-		case "intersect":
-			var k int
-			fmt.Fscan(reader, &k)
-			other := 0
-			for j := 0; j < k; j++ {
-				var x int
-				fmt.Fscan(reader, &x)
-				other |= 1 << (x - 1)
-			}
-			mask &= other
+			operations[i] = Operation{Op: op, Operands: operands}
 		}
 	}
 
-	// 최종 집합 출력
-	if mask == 0 {
-		fmt.Fprintln(writer, "empty")
-		return
-	}
+	// 핵심 함수 호출
+	mask := processSetOperations(n, operations)
 
-	first := true
-	for i := 0; i < n; i++ {
-		if mask&(1<<i) != 0 {
-			if !first {
-				fmt.Fprint(writer, " ")
-			}
-			fmt.Fprint(writer, i+1)
-			first = false
-		}
-	}
-	fmt.Fprintln(writer)
+	// 결과 출력
+	fmt.Fprintln(writer, formatSet(mask, n))
 }

@@ -6,6 +6,20 @@ import (
 	"os"
 )
 
+// 파스칼의 삼각형을 저장할 배열
+var dp [31][31]int64
+
+// buildPascal은 파스칼의 삼각형을 구축한다
+func buildPascal() {
+	for i := 0; i <= 30; i++ {
+		dp[i][0] = 1
+		dp[i][i] = 1
+		for j := 1; j < i; j++ {
+			dp[i][j] = dp[i-1][j-1] + dp[i-1][j]
+		}
+	}
+}
+
 // binomialCoefficient는 파스칼의 삼각형으로 이항 계수 C(n, r)을 구한다.
 //
 // [매개변수]
@@ -23,6 +37,9 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
+
+	// 파스칼의 삼각형 전처리
+	buildPascal()
 
 	var t int
 	fmt.Fscan(reader, &t)
