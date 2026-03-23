@@ -4,17 +4,19 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 )
 
-// sortString 함수는 문자열의 문자를 정렬하여 아나그램의 대표 키를 생성한다.
-func sortString(s string) string {
-	runes := []rune(s)
-	sort.Slice(runes, func(i, j int) bool {
-		return runes[i] < runes[j]
-	})
-	return string(runes)
+// groupAnagrams는 문자열 배열에서 아나그램 관계인 문자열들을 그룹화하여 반환한다.
+//
+// [매개변수]
+//   - words: 알파벳 소문자로 이루어진 문자열 배열
+//
+// [반환값]
+//   - [][]string: 아나그램 그룹 배열 (각 그룹 내 사전순, 그룹 간 첫 문자열 기준 사전순)
+func groupAnagrams(words []string) [][]string {
+	// 여기에 코드를 작성하세요
+	return nil
 }
 
 func main() {
@@ -26,29 +28,14 @@ func main() {
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 해시맵: 정렬된 문자열(키) → 원본 문자열 목록(값)
-	groups := make(map[string][]string)
-
+	// 문자열 입력
+	words := make([]string, n)
 	for i := 0; i < n; i++ {
-		var s string
-		fmt.Fscan(reader, &s)
-
-		// 문자열을 정렬하여 아나그램 대표 키 생성
-		key := sortString(s)
-		groups[key] = append(groups[key], s)
+		fmt.Fscan(reader, &words[i])
 	}
 
-	// 각 그룹 내 문자열을 사전순 정렬
-	result := make([][]string, 0, len(groups))
-	for _, group := range groups {
-		sort.Strings(group)
-		result = append(result, group)
-	}
-
-	// 그룹 간 정렬: 각 그룹의 첫 번째 문자열 기준 사전순
-	sort.Slice(result, func(i, j int) bool {
-		return result[i][0] < result[j][0]
-	})
+	// 핵심 함수 호출
+	result := groupAnagrams(words)
 
 	// 결과 출력
 	for _, group := range result {

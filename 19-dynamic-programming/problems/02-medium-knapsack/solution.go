@@ -6,6 +6,21 @@ import (
 	"os"
 )
 
+// knapsack은 0/1 배낭 문제에서 담을 수 있는 최대 가치를 반환한다.
+//
+// [매개변수]
+//   - n: 물건의 개수
+//   - k: 배낭의 용량
+//   - weight: 각 물건의 무게 배열 (1-indexed)
+//   - value: 각 물건의 가치 배열 (1-indexed)
+//
+// [반환값]
+//   - int: 배낭에 담을 수 있는 최대 가치
+func knapsack(n, k int, weight, value []int) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -21,20 +36,9 @@ func main() {
 		fmt.Fscan(reader, &weight[i], &value[i])
 	}
 
-	// dp[j] = 용량 j일 때 담을 수 있는 최대 가치
-	// 1차원 배열로 공간 최적화한 바텀업 DP
-	dp := make([]int, k+1)
-
-	for i := 1; i <= n; i++ {
-		// 역순으로 순회하여 같은 물건을 중복 사용하지 않도록 한다
-		for j := k; j >= weight[i]; j-- {
-			// 점화식: i번째 물건을 넣는 경우와 넣지 않는 경우 중 최댓값
-			if dp[j-weight[i]]+value[i] > dp[j] {
-				dp[j] = dp[j-weight[i]] + value[i]
-			}
-		}
-	}
+	// 핵심 함수 호출
+	result := knapsack(n, k, weight, value)
 
 	// 결과 출력
-	fmt.Fprintln(writer, dp[k])
+	fmt.Fprintln(writer, result)
 }

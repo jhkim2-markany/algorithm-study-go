@@ -6,43 +6,34 @@ import (
 	"os"
 )
 
+// primeRangeQuery는 에라토스테네스의 체와 누적합을 이용하여 구간 소수 개수 쿼리에 응답한다.
+//
+// [매개변수]
+//   - n: 소수를 구할 상한값
+//   - queries: 구간 쿼리 배열 (각 원소는 [2]int{l, r})
+//
+// [반환값]
+//   - []int: 각 쿼리에 대한 [l, r] 구간의 소수 개수 배열
+func primeRangeQuery(n int, queries [][2]int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// N과 쿼리 수 Q 입력
 	var n, q int
 	fmt.Fscan(reader, &n, &q)
 
-	// 에라토스테네스의 체로 소수를 구한다
-	isPrime := make([]bool, n+1)
-	for i := 2; i <= n; i++ {
-		isPrime[i] = true
-	}
-	for i := 2; i*i <= n; i++ {
-		if isPrime[i] {
-			for j := i * i; j <= n; j += i {
-				isPrime[j] = false
-			}
-		}
-	}
-
-	// 누적합 배열을 구성한다
-	// prefix[i] = 1부터 i까지의 소수 개수
-	prefix := make([]int, n+1)
-	for i := 1; i <= n; i++ {
-		prefix[i] = prefix[i-1]
-		if isPrime[i] {
-			prefix[i]++
-		}
-	}
-
-	// 각 쿼리에 대해 구간 소수 개수를 O(1)에 응답한다
+	queries := make([][2]int, q)
 	for i := 0; i < q; i++ {
-		var l, r int
-		fmt.Fscan(reader, &l, &r)
-		// [L, R] 구간의 소수 개수 = prefix[R] - prefix[L-1]
-		fmt.Fprintln(writer, prefix[r]-prefix[l-1])
+		fmt.Fscan(reader, &queries[i][0], &queries[i][1])
+	}
+
+	results := primeRangeQuery(n, queries)
+	for _, r := range results {
+		fmt.Fprintln(writer, r)
 	}
 }

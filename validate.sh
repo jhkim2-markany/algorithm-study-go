@@ -113,7 +113,7 @@ for folder in "${FOLDERS[@]}"; do
     for pdir in "$folder/problems"/*/; do
       pname=$(basename "$pdir")
       case "$pname" in *easy*) has_easy=true;; *medium*) has_medium=true;; *hard*) has_hard=true;; esac
-      for req_file in problem.md solution.go explanation.md; do
+      for req_file in problem.md solution.go answer.go explanation.md; do
         if [ -f "$pdir/$req_file" ]; then pass; else fail "$folder/problems/$pname/$req_file 누락"; fi
       done
     done

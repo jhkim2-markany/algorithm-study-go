@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"container/heap"
 	"fmt"
 	"math"
 	"os"
@@ -33,6 +32,21 @@ func (pq *PQ) Pop() interface{} {
 	return item
 }
 
+// dijkstra는 가중치 그래프에서 시작 정점으로부터 모든 정점까지의 최단 거리와 경로를 구한다.
+//
+// [매개변수]
+//   - graph: 인접 리스트로 표현된 가중치 그래프 (1-indexed)
+//   - n: 정점의 수
+//   - start: 시작 정점 번호
+//
+// [반환값]
+//   - []int: 각 정점까지의 최단 거리 배열
+//   - []int: 경로 복원을 위한 이전 정점 배열
+func dijkstra(graph [][]Edge, n, start int) ([]int, []int) {
+	// 여기에 코드를 작성하세요
+	return nil, nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -49,37 +63,8 @@ func main() {
 		graph[u] = append(graph[u], Edge{v, w})
 	}
 
-	// Dijkstra 알고리즘으로 최단 거리 및 경로 추적
-	dist := make([]int, n+1)
-	prev := make([]int, n+1) // 경로 복원을 위한 이전 정점 배열
-	for i := range dist {
-		dist[i] = math.MaxInt64
-		prev[i] = -1
-	}
-	dist[1] = 0
-
-	pq := &PQ{{0, 1}}
-	heap.Init(pq)
-
-	for pq.Len() > 0 {
-		cur := heap.Pop(pq).(Item)
-		u := cur.node
-
-		// 이미 더 짧은 경로가 확정되었으면 건너뛴다
-		if cur.dist > dist[u] {
-			continue
-		}
-
-		// 인접 정점에 대해 완화(relaxation) 수행
-		for _, e := range graph[u] {
-			newDist := dist[u] + e.weight
-			if newDist < dist[e.to] {
-				dist[e.to] = newDist
-				prev[e.to] = u // 이전 정점 기록
-				heap.Push(pq, Item{newDist, e.to})
-			}
-		}
-	}
+	// 핵심 함수 호출
+	dist, prev := dijkstra(graph, n, 1)
 
 	// 도달 불가능한 경우
 	if dist[n] == math.MaxInt64 {

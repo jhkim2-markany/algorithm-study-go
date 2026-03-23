@@ -4,15 +4,25 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 )
+
+// lisLength는 주어진 수열에서 최장 증가 부분 수열(LIS)의 길이를 반환한다.
+//
+// [매개변수]
+//   - a: 정수 수열
+//
+// [반환값]
+//   - int: LIS의 길이
+func lisLength(a []int) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: 수열 길이
 	var n int
 	fmt.Fscan(reader, &n)
 
@@ -21,21 +31,5 @@ func main() {
 		fmt.Fscan(reader, &a[i])
 	}
 
-	// O(N log N) 이분 탐색 기반 LIS
-	tails := []int{} // tails[k] = 길이 k+1인 증가 부분 수열의 마지막 원소 최솟값
-
-	for _, x := range a {
-		// tails에서 x 이상인 첫 번째 위치를 찾는다 (lower_bound)
-		pos := sort.SearchInts(tails, x)
-		if pos == len(tails) {
-			// x가 모든 원소보다 크면 뒤에 추가
-			tails = append(tails, x)
-		} else {
-			// 해당 위치를 x로 교체
-			tails[pos] = x
-		}
-	}
-
-	// 출력: LIS 길이
-	fmt.Fprintln(writer, len(tails))
+	fmt.Fprintln(writer, lisLength(a))
 }

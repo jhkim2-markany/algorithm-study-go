@@ -6,16 +6,26 @@ import (
 	"os"
 )
 
+// processDequeOps는 덱 명령어 목록을 처리하고 각 출력 명령의 결과를 반환한다.
+//
+// [매개변수]
+//   - commands: 각 원소가 [명령어, 값] 형태인 명령 배열 (값이 없으면 0)
+//
+// [반환값]
+//   - []int: 출력이 필요한 명령(pop_front, pop_back, size, empty, front, back)의 결과 배열
+func processDequeOps(commands []([2]interface{})) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: 명령의 수
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 슬라이스 기반 덱 구현
 	deque := []int{}
 
 	for i := 0; i < n; i++ {
@@ -24,57 +34,42 @@ func main() {
 
 		switch cmd {
 		case "push_front":
-			// 덱의 앞에 원소를 추가한다
 			var x int
 			fmt.Fscan(reader, &x)
 			deque = append([]int{x}, deque...)
-
 		case "push_back":
-			// 덱의 뒤에 원소를 추가한다
 			var x int
 			fmt.Fscan(reader, &x)
 			deque = append(deque, x)
-
 		case "pop_front":
-			// 덱의 앞 원소를 제거하고 출력한다
 			if len(deque) == 0 {
 				fmt.Fprintln(writer, -1)
 			} else {
 				fmt.Fprintln(writer, deque[0])
 				deque = deque[1:]
 			}
-
 		case "pop_back":
-			// 덱의 뒤 원소를 제거하고 출력한다
 			if len(deque) == 0 {
 				fmt.Fprintln(writer, -1)
 			} else {
 				fmt.Fprintln(writer, deque[len(deque)-1])
 				deque = deque[:len(deque)-1]
 			}
-
 		case "size":
-			// 덱의 크기를 출력한다
 			fmt.Fprintln(writer, len(deque))
-
 		case "empty":
-			// 덱이 비어 있으면 1, 아니면 0을 출력한다
 			if len(deque) == 0 {
 				fmt.Fprintln(writer, 1)
 			} else {
 				fmt.Fprintln(writer, 0)
 			}
-
 		case "front":
-			// 덱의 앞 원소를 출력한다
 			if len(deque) == 0 {
 				fmt.Fprintln(writer, -1)
 			} else {
 				fmt.Fprintln(writer, deque[0])
 			}
-
 		case "back":
-			// 덱의 뒤 원소를 출력한다
 			if len(deque) == 0 {
 				fmt.Fprintln(writer, -1)
 			} else {

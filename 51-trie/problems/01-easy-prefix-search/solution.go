@@ -6,34 +6,31 @@ import (
 	"os"
 )
 
-// 트라이 노드 구조체
+// TrieNode는 트라이 노드 구조체이다.
 type TrieNode struct {
 	children [26]*TrieNode
 }
 
-// 트라이에 단어를 삽입한다
-func insert(root *TrieNode, word string) {
-	node := root
-	for _, ch := range word {
-		idx := ch - 'a'
-		if node.children[idx] == nil {
-			node.children[idx] = &TrieNode{}
-		}
-		node = node.children[idx]
-	}
+// insertWord는 트라이에 단어를 삽입한다.
+//
+// [매개변수]
+//   - root: 트라이의 루트 노드
+//   - word: 삽입할 단어 (소문자 알파벳)
+func insertWord(root *TrieNode, word string) {
+	// 여기에 코드를 작성하세요
 }
 
-// 주어진 문자열이 트라이에 저장된 단어의 접두사인지 확인한다
+// hasPrefix는 주어진 문자열이 트라이에 저장된 단어의 접두사인지 확인한다.
+//
+// [매개변수]
+//   - root: 트라이의 루트 노드
+//   - prefix: 확인할 접두사 문자열
+//
+// [반환값]
+//   - bool: 접두사가 존재하면 true, 아니면 false
 func hasPrefix(root *TrieNode, prefix string) bool {
-	node := root
-	for _, ch := range prefix {
-		idx := ch - 'a'
-		if node.children[idx] == nil {
-			return false
-		}
-		node = node.children[idx]
-	}
-	return true
+	// 여기에 코드를 작성하세요
+	return false
 }
 
 func main() {
@@ -41,19 +38,16 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: 단어 수 N, 질의 수 M
 	var n, m int
 	fmt.Fscan(reader, &n, &m)
 
-	// 트라이 생성 및 단어 삽입
 	root := &TrieNode{}
 	for i := 0; i < n; i++ {
 		var word string
 		fmt.Fscan(reader, &word)
-		insert(root, word)
+		insertWord(root, word)
 	}
 
-	// 각 질의에 대해 접두사 존재 여부 판별
 	for i := 0; i < m; i++ {
 		var query string
 		fmt.Fscan(reader, &query)

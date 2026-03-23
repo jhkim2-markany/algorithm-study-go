@@ -6,6 +6,19 @@ import (
 	"os"
 )
 
+// rotateMatrix는 N×N 행렬을 시계 방향으로 90도 회전한 결과를 반환한다.
+//
+// [매개변수]
+//   - matrix: N×N 크기의 2차원 정수 배열
+//   - n: 행렬의 크기 (행과 열의 수)
+//
+// [반환값]
+//   - [][]int: 시계 방향으로 90도 회전된 N×N 행렬
+func rotateMatrix(matrix [][]int, n int) [][]int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -24,15 +37,8 @@ func main() {
 		}
 	}
 
-	// 시계 방향 90도 회전
-	// 원래 (i, j) 위치의 값이 (j, n-1-i) 위치로 이동한다
-	rotated := make([][]int, n)
-	for i := 0; i < n; i++ {
-		rotated[i] = make([]int, n)
-		for j := 0; j < n; j++ {
-			rotated[i][j] = matrix[n-1-j][i]
-		}
-	}
+	// 핵심 함수 호출
+	rotated := rotateMatrix(matrix, n)
 
 	// 결과 출력
 	for i := 0; i < n; i++ {

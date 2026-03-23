@@ -4,8 +4,26 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 )
+
+// FreqPair는 값과 등장 횟수를 저장하는 구조체이다.
+type FreqPair struct {
+	Value int
+	Count int
+}
+
+// countFrequency는 배열의 각 원소 등장 횟수를 구하여
+// 등장 횟수 내림차순, 같으면 값 오름차순으로 정렬된 결과를 반환한다.
+//
+// [매개변수]
+//   - arr: 정수 배열
+//
+// [반환값]
+//   - []FreqPair: (값, 등장횟수) 쌍의 배열 (등장횟수 내림차순, 값 오름차순)
+func countFrequency(arr []int) []FreqPair {
+	// 여기에 코드를 작성하세요
+	return nil
+}
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
@@ -16,34 +34,17 @@ func main() {
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 배열 입력 및 해시맵으로 빈도수 계산
-	freq := make(map[int]int)
+	// 배열 입력
+	arr := make([]int, n)
 	for i := 0; i < n; i++ {
-		var num int
-		fmt.Fscan(reader, &num)
-		freq[num]++
+		fmt.Fscan(reader, &arr[i])
 	}
 
-	// 해시맵의 키-값 쌍을 슬라이스로 변환
-	type pair struct {
-		value int
-		count int
-	}
-	pairs := make([]pair, 0, len(freq))
-	for v, c := range freq {
-		pairs = append(pairs, pair{v, c})
-	}
-
-	// 등장 횟수 내림차순, 같으면 값 오름차순으로 정렬
-	sort.Slice(pairs, func(i, j int) bool {
-		if pairs[i].count != pairs[j].count {
-			return pairs[i].count > pairs[j].count
-		}
-		return pairs[i].value < pairs[j].value
-	})
+	// 핵심 함수 호출
+	result := countFrequency(arr)
 
 	// 결과 출력
-	for _, p := range pairs {
-		fmt.Fprintf(writer, "%d %d\n", p.value, p.count)
+	for _, p := range result {
+		fmt.Fprintf(writer, "%d %d\n", p.Value, p.Count)
 	}
 }

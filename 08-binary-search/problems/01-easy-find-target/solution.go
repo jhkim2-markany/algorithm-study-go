@@ -6,6 +6,19 @@ import (
 	"os"
 )
 
+// findTarget은 정렬된 배열에서 target의 인덱스를 이진 탐색으로 찾아 반환한다.
+//
+// [매개변수]
+//   - arr: 오름차순 정렬된 정수 배열
+//   - target: 찾을 값
+//
+// [반환값]
+//   - int: target의 인덱스 (0-indexed), 없으면 -1
+func findTarget(arr []int, target int) int {
+	// 여기에 코드를 작성하세요
+	return -1
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -21,31 +34,10 @@ func main() {
 		fmt.Fscan(reader, &arr[i])
 	}
 
-	// 각 질의에 대해 이진 탐색 수행
+	// 각 질의에 대해 핵심 함수 호출
 	for q := 0; q < m; q++ {
 		var target int
 		fmt.Fscan(reader, &target)
-
-		// 이진 탐색으로 target의 인덱스를 찾는다
-		lo, hi := 0, n-1
-		result := -1
-
-		for lo <= hi {
-			mid := (lo + hi) / 2
-
-			if arr[mid] == target {
-				// 값을 찾은 경우
-				result = mid
-				break
-			} else if arr[mid] < target {
-				// 오른쪽 절반 탐색
-				lo = mid + 1
-			} else {
-				// 왼쪽 절반 탐색
-				hi = mid - 1
-			}
-		}
-
-		fmt.Fprintln(writer, result)
+		fmt.Fprintln(writer, findTarget(arr, target))
 	}
 }

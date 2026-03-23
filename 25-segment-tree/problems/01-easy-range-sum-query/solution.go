@@ -10,50 +10,43 @@ import (
 var tree []int64
 var n int
 
-// build 함수는 세그먼트 트리를 구축한다
+// build는 세그먼트 트리를 구축한다.
+//
+// [매개변수]
+//   - arr: 원본 배열
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
 func build(arr []int64, node, start, end int) {
-	if start == end {
-		// 리프 노드: 원본 배열 값 저장
-		tree[node] = arr[start]
-		return
-	}
-	mid := (start + end) / 2
-	build(arr, 2*node, start, mid)
-	build(arr, 2*node+1, mid+1, end)
-	// 내부 노드: 자식의 합
-	tree[node] = tree[2*node] + tree[2*node+1]
+	// 여기에 코드를 작성하세요
 }
 
-// update 함수는 인덱스 idx의 값을 val로 변경한다
+// update는 인덱스 idx의 값을 val로 변경한다.
+//
+// [매개변수]
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
+//   - idx: 변경할 인덱스
+//   - val: 새로운 값
 func update(node, start, end, idx int, val int64) {
-	if start == end {
-		// 리프 노드에 도달하면 값 갱신
-		tree[node] = val
-		return
-	}
-	mid := (start + end) / 2
-	if idx <= mid {
-		update(2*node, start, mid, idx, val)
-	} else {
-		update(2*node+1, mid+1, end, idx, val)
-	}
-	// 부모 노드 재계산
-	tree[node] = tree[2*node] + tree[2*node+1]
+	// 여기에 코드를 작성하세요
 }
 
-// query 함수는 구간 [l, r]의 합을 반환한다
+// query는 구간 [l, r]의 합을 반환한다.
+//
+// [매개변수]
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
+//   - l: 질의 구간 왼쪽 끝
+//   - r: 질의 구간 오른쪽 끝
+//
+// [반환값]
+//   - int64: 구간 [l, r]의 합
 func query(node, start, end, l, r int) int64 {
-	// 구간이 겹치지 않는 경우
-	if r < start || end < l {
-		return 0
-	}
-	// 구간이 완전히 포함되는 경우
-	if l <= start && end <= r {
-		return tree[node]
-	}
-	// 부분적으로 겹치는 경우
-	mid := (start + end) / 2
-	return query(2*node, start, mid, l, r) + query(2*node+1, mid+1, end, l, r)
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -79,13 +72,11 @@ func main() {
 		fmt.Fscan(reader, &op)
 
 		if op == 1 {
-			// 점 갱신: i번째 원소를 v로 변경 (1-indexed → 0-indexed)
 			var i int
 			var v int64
 			fmt.Fscan(reader, &i, &v)
 			update(1, 0, n-1, i-1, v)
 		} else {
-			// 구간 합 질의 (1-indexed → 0-indexed)
 			var l, r int
 			fmt.Fscan(reader, &l, &r)
 			fmt.Fprintln(writer, query(1, 0, n-1, l-1, r-1))

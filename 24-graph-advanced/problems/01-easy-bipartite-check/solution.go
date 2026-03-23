@@ -6,6 +6,19 @@ import (
 	"os"
 )
 
+// isBipartite는 그래프가 이분 그래프인지 판별한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트로 표현된 무방향 그래프 (1-indexed)
+//   - n: 정점의 수
+//
+// [반환값]
+//   - bool: 이분 그래프이면 true, 아니면 false
+func isBipartite(adj [][]int, n int) bool {
+	// 여기에 코드를 작성하세요
+	return false
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -28,47 +41,8 @@ func main() {
 		adj[v] = append(adj[v], u)
 	}
 
-	// 색칠 배열: -1은 미색칠, 0과 1은 두 그룹
-	color := make([]int, n+1)
-	for i := range color {
-		color[i] = -1
-	}
-
-	bipartite := true
-
-	// 모든 연결 요소에 대해 BFS 색칠 수행
-	for start := 1; start <= n; start++ {
-		if color[start] != -1 {
-			continue
-		}
-
-		// BFS로 시작 정점부터 색칠
-		color[start] = 0
-		queue := []int{start}
-
-		for len(queue) > 0 && bipartite {
-			cur := queue[0]
-			queue = queue[1:]
-
-			for _, next := range adj[cur] {
-				if color[next] == -1 {
-					// 인접 정점에 반대 색을 칠한다
-					color[next] = 1 - color[cur]
-					queue = append(queue, next)
-				} else if color[next] == color[cur] {
-					// 같은 색이면 이분 그래프가 아니다
-					bipartite = false
-					break
-				}
-			}
-		}
-
-		if !bipartite {
-			break
-		}
-	}
-
-	if bipartite {
+	// 핵심 함수 호출
+	if isBipartite(adj, n) {
 		fmt.Fprintln(writer, "Yes")
 	} else {
 		fmt.Fprintln(writer, "No")

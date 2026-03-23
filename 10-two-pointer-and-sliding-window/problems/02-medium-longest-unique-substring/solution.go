@@ -6,6 +6,18 @@ import (
 	"os"
 )
 
+// longestUniqueSubstring은 중복 문자가 없는 가장 긴 부분 문자열의 길이를 반환한다.
+//
+// [매개변수]
+//   - s: 알파벳 소문자로 이루어진 문자열
+//
+// [반환값]
+//   - int: 중복 문자가 없는 가장 긴 부분 문자열의 길이
+func longestUniqueSubstring(s string) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -15,29 +27,9 @@ func main() {
 	var s string
 	fmt.Fscan(reader, &s)
 
-	// 각 문자의 등장 횟수를 추적하는 배열 (영문 소문자 26개)
-	var count [26]int
-	maxLen := 0
-	left := 0
-
-	// 슬라이딩 윈도우: right 포인터를 확장하며 탐색
-	for right := 0; right < len(s); right++ {
-		ch := s[right] - 'a'
-		count[ch]++
-
-		// 중복 문자가 발생하면 left를 이동하여 중복 해소
-		for count[ch] > 1 {
-			count[s[left]-'a']--
-			left++
-		}
-
-		// 현재 윈도우 길이로 최대값 갱신
-		length := right - left + 1
-		if length > maxLen {
-			maxLen = length
-		}
-	}
+	// 핵심 함수 호출
+	result := longestUniqueSubstring(s)
 
 	// 결과 출력
-	fmt.Fprintln(writer, maxLen)
+	fmt.Fprintln(writer, result)
 }

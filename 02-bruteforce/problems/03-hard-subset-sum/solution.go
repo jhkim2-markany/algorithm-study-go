@@ -6,6 +6,20 @@ import (
 	"os"
 )
 
+// countSubsetSum은 배열의 부분집합 중 합이 target인
+// 부분집합의 개수를 반환한다.
+//
+// [매개변수]
+//   - arr: 정수 배열 (원소는 양수, 음수, 0 모두 가능)
+//   - target: 부분집합의 합이 되어야 하는 목표값
+//
+// [반환값]
+//   - int: 합이 target인 부분집합의 개수 (빈 집합 제외)
+func countSubsetSum(arr []int, target int) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -21,23 +35,9 @@ func main() {
 		fmt.Fscan(reader, &arr[i])
 	}
 
-	count := 0
+	// 핵심 함수 호출
+	count := countSubsetSum(arr, s)
 
-	// 비트마스크로 모든 부분집합을 탐색 (빈 집합 제외)
-	// mask가 1부터 시작하여 빈 집합을 제외한다
-	for mask := 1; mask < (1 << n); mask++ {
-		sum := 0
-		// 각 비트를 확인하여 선택된 원소의 합을 계산
-		for i := 0; i < n; i++ {
-			if mask&(1<<i) != 0 {
-				sum += arr[i]
-			}
-		}
-		// 합이 목표값과 같으면 카운트 증가
-		if sum == s {
-			count++
-		}
-	}
-
+	// 결과 출력
 	fmt.Fprintln(writer, count)
 }

@@ -6,6 +6,20 @@ import (
 	"os"
 )
 
+// topologicalSort는 위상 정렬을 수행하여 작업 순서를 구한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트로 표현된 방향 그래프 (1-indexed)
+//   - inDegree: 각 정점의 진입 차수 배열
+//   - n: 정점(작업)의 수
+//
+// [반환값]
+//   - []int: 위상 정렬 결과 (사이클이 있으면 nil)
+func topologicalSort(adj [][]int, inDegree []int, n int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -29,32 +43,10 @@ func main() {
 		inDegree[b]++
 	}
 
-	// Kahn 알고리즘으로 위상 정렬 수행
-	queue := []int{}
-	for i := 1; i <= n; i++ {
-		if inDegree[i] == 0 {
-			queue = append(queue, i)
-		}
-	}
+	// 핵심 함수 호출
+	result := topologicalSort(adj, inDegree, n)
 
-	result := make([]int, 0, n)
-	for len(queue) > 0 {
-		// 큐에서 정점을 꺼내 결과에 추가
-		cur := queue[0]
-		queue = queue[1:]
-		result = append(result, cur)
-
-		// 인접 정점의 진입 차수 감소
-		for _, next := range adj[cur] {
-			inDegree[next]--
-			if inDegree[next] == 0 {
-				queue = append(queue, next)
-			}
-		}
-	}
-
-	// 사이클 판별: 모든 작업이 처리되었는지 확인
-	if len(result) != n {
+	if result == nil {
 		fmt.Fprintln(writer, -1)
 		return
 	}

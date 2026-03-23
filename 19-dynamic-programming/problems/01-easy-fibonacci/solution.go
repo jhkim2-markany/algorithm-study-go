@@ -6,6 +6,18 @@ import (
 	"os"
 )
 
+// fibonacci는 N번째 피보나치 수를 반환한다.
+//
+// [매개변수]
+//   - n: 구하고자 하는 피보나치 수의 인덱스 (0-indexed)
+//
+// [반환값]
+//   - int: N번째 피보나치 수
+func fibonacci(n int) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -15,22 +27,9 @@ func main() {
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 기저 사례 처리
-	if n <= 1 {
-		fmt.Fprintln(writer, n)
-		return
-	}
-
-	// 바텀업 DP로 피보나치 수를 계산한다
-	dp := make([]int, n+1)
-	dp[0] = 0
-	dp[1] = 1
-
-	// 점화식: dp[i] = dp[i-1] + dp[i-2]
-	for i := 2; i <= n; i++ {
-		dp[i] = dp[i-1] + dp[i-2]
-	}
+	// 핵심 함수 호출
+	result := fibonacci(n)
 
 	// 결과 출력
-	fmt.Fprintln(writer, dp[n])
+	fmt.Fprintln(writer, result)
 }

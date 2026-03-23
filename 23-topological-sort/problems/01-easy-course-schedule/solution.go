@@ -6,6 +6,20 @@ import (
 	"os"
 )
 
+// canFinishAll은 위상 정렬을 수행하여 모든 과목을 수강할 수 있는지 판별한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트로 표현된 방향 그래프 (1-indexed)
+//   - inDegree: 각 정점의 진입 차수 배열
+//   - n: 정점(과목)의 수
+//
+// [반환값]
+//   - bool: 모든 과목을 수강할 수 있으면 true, 사이클이 있으면 false
+func canFinishAll(adj [][]int, inDegree []int, n int) bool {
+	// 여기에 코드를 작성하세요
+	return false
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -29,31 +43,8 @@ func main() {
 		inDegree[b]++
 	}
 
-	// Kahn 알고리즘으로 위상 정렬 수행
-	queue := []int{}
-	for i := 1; i <= n; i++ {
-		if inDegree[i] == 0 {
-			queue = append(queue, i)
-		}
-	}
-
-	count := 0
-	for len(queue) > 0 {
-		cur := queue[0]
-		queue = queue[1:]
-		count++
-
-		// 인접 정점의 진입 차수 감소
-		for _, next := range adj[cur] {
-			inDegree[next]--
-			if inDegree[next] == 0 {
-				queue = append(queue, next)
-			}
-		}
-	}
-
-	// 모든 과목을 처리했으면 사이클 없음
-	if count == n {
+	// 핵심 함수 호출
+	if canFinishAll(adj, inDegree, n) {
 		fmt.Fprintln(writer, "Yes")
 	} else {
 		fmt.Fprintln(writer, "No")

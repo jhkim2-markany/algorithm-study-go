@@ -6,33 +6,18 @@ import (
 	"os"
 )
 
-var (
-	n, m    int
-	adj     [][]int
-	radj    [][]int
-	visited []bool
-	order   []int
-)
-
-// dfs1 함수는 원본 그래프에서 DFS를 수행하며 완료 순서를 기록한다
-func dfs1(u int) {
-	visited[u] = true
-	for _, v := range adj[u] {
-		if !visited[v] {
-			dfs1(v)
-		}
-	}
-	order = append(order, u)
-}
-
-// dfs2 함수는 역방향 그래프에서 DFS를 수행하여 SCC를 구한다
-func dfs2(u int) {
-	visited[u] = true
-	for _, v := range radj[u] {
-		if !visited[v] {
-			dfs2(v)
-		}
-	}
+// countSCC는 코사라주 알고리즘으로 강한 연결 요소의 개수를 구한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트로 표현된 방향 그래프 (1-indexed)
+//   - radj: 역방향 인접 리스트 (1-indexed)
+//   - n: 정점의 수
+//
+// [반환값]
+//   - int: 강한 연결 요소(SCC)의 개수
+func countSCC(adj, radj [][]int, n int) int {
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -40,11 +25,12 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
+	var n, m int
 	fmt.Fscan(reader, &n, &m)
 
 	// 인접 리스트 초기화 (원본 + 역방향)
-	adj = make([][]int, n+1)
-	radj = make([][]int, n+1)
+	adj := make([][]int, n+1)
+	radj := make([][]int, n+1)
 	for i := 1; i <= n; i++ {
 		adj[i] = []int{}
 		radj[i] = []int{}
@@ -55,31 +41,11 @@ func main() {
 		var u, v int
 		fmt.Fscan(reader, &u, &v)
 		adj[u] = append(adj[u], v)
-		radj[v] = append(radj[v], u) // 역방향 간선
+		radj[v] = append(radj[v], u)
 	}
 
-	// 1단계: 원본 그래프에서 DFS, 완료 순서 기록
-	visited = make([]bool, n+1)
-	order = []int{}
-	for i := 1; i <= n; i++ {
-		if !visited[i] {
-			dfs1(i)
-		}
-	}
+	// 핵심 함수 호출
+	result := countSCC(adj, radj, n)
 
-	// 2단계: 역방향 그래프에서 완료 순서의 역순으로 DFS
-	for i := range visited {
-		visited[i] = false
-	}
-
-	sccCount := 0
-	for i := len(order) - 1; i >= 0; i-- {
-		u := order[i]
-		if !visited[u] {
-			dfs2(u)
-			sccCount++ // 하나의 SCC 완성
-		}
-	}
-
-	fmt.Fprintln(writer, sccCount)
+	fmt.Fprintln(writer, result)
 }

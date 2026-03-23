@@ -4,13 +4,24 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 )
 
 // 학생 정보를 저장하는 구조체
 type Student struct {
 	name           string
 	kor, eng, math int
+}
+
+// customSort는 학생 배열을 다중 조건에 따라 정렬하여 반환한다.
+//
+// [매개변수]
+//   - students: 학생 정보 배열 (각 학생은 이름, 국어, 영어, 수학 점수를 가짐)
+//
+// [반환값]
+//   - []Student: 다중 조건으로 정렬된 학생 배열
+func customSort(students []Student) []Student {
+	// 여기에 코드를 작성하세요
+	return nil
 }
 
 func main() {
@@ -28,27 +39,11 @@ func main() {
 		fmt.Fscan(reader, &students[i].name, &students[i].kor, &students[i].eng, &students[i].math)
 	}
 
-	// 다중 조건 정렬
-	sort.SliceStable(students, func(i, j int) bool {
-		a, b := students[i], students[j]
-		// 1. 국어 점수 내림차순
-		if a.kor != b.kor {
-			return a.kor > b.kor
-		}
-		// 2. 영어 점수 오름차순
-		if a.eng != b.eng {
-			return a.eng < b.eng
-		}
-		// 3. 수학 점수 내림차순
-		if a.math != b.math {
-			return a.math > b.math
-		}
-		// 4. 이름 사전순 오름차순
-		return a.name < b.name
-	})
+	// 핵심 함수 호출
+	sorted := customSort(students)
 
 	// 결과 출력
-	for i := 0; i < n; i++ {
-		fmt.Fprintln(writer, students[i].name)
+	for i := 0; i < len(sorted); i++ {
+		fmt.Fprintln(writer, sorted[i].name)
 	}
 }

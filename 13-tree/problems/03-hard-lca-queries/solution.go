@@ -6,59 +6,35 @@ import (
 	"os"
 )
 
-// LCA (최소 공통 조상) - 희소 테이블(Sparse Table)을 이용한 풀이
-// 시간 복잡도: 전처리 O(N log N), 쿼리 O(log N)
-// 공간 복잡도: O(N log N)
-
-const MAXLOG = 17 // log2(100000) ≈ 16.6
+const MAXLOG = 17
 
 var (
 	adj   [][]int
 	depth []int
-	up    [MAXLOG][]int // up[k][v] = v의 2^k번째 조상
+	up    [MAXLOG][]int
 )
 
-// dfs 함수는 루트에서 시작하여 깊이와 부모 정보를 구축한다
-func dfs(cur, par, d int) {
-	depth[cur] = d
-	up[0][cur] = par
-	for _, next := range adj[cur] {
-		if next != par {
-			dfs(next, cur, d+1)
-		}
-	}
+// buildLCA는 트리의 깊이와 희소 테이블을 구축한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트 (1-indexed)
+//   - n: 노드 수
+//   - root: 루트 노드 번호
+func buildLCA(adj [][]int, n, root int) {
+	// 여기에 코드를 작성하세요
 }
 
-// lca 함수는 두 노드의 최소 공통 조상을 반환한다
-func lca(u, v int) int {
-	// 깊이가 더 깊은 노드를 u로 설정
-	if depth[u] < depth[v] {
-		u, v = v, u
-	}
-
-	// u의 깊이를 v와 맞춘다 (이진 리프팅)
-	diff := depth[u] - depth[v]
-	for k := 0; k < MAXLOG; k++ {
-		if (diff>>k)&1 == 1 {
-			u = up[k][u]
-		}
-	}
-
-	// 같은 노드이면 바로 반환
-	if u == v {
-		return u
-	}
-
-	// 두 노드를 동시에 올려서 LCA 직전까지 이동
-	for k := MAXLOG - 1; k >= 0; k-- {
-		if up[k][u] != up[k][v] {
-			u = up[k][u]
-			v = up[k][v]
-		}
-	}
-
-	// 한 칸 더 올리면 LCA
-	return up[0][u]
+// queryLCA는 두 노드의 최소 공통 조상을 반환한다.
+//
+// [매개변수]
+//   - u: 첫 번째 노드 번호
+//   - v: 두 번째 노드 번호
+//
+// [반환값]
+//   - int: 두 노드의 최소 공통 조상 노드 번호
+func queryLCA(u, v int) int {
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -88,15 +64,8 @@ func main() {
 		adj[v] = append(adj[v], u)
 	}
 
-	// DFS로 깊이와 직접 부모 정보 구축
-	dfs(1, 0, 0)
-
-	// 희소 테이블 구축: up[k][v] = v의 2^k번째 조상
-	for k := 1; k < MAXLOG; k++ {
-		for v := 1; v <= n; v++ {
-			up[k][v] = up[k-1][up[k-1][v]]
-		}
-	}
+	// LCA 전처리
+	buildLCA(adj, n, 1)
 
 	// 쿼리 처리
 	var m int
@@ -104,6 +73,6 @@ func main() {
 	for i := 0; i < m; i++ {
 		var a, b int
 		fmt.Fscan(reader, &a, &b)
-		fmt.Fprintln(writer, lca(a, b))
+		fmt.Fprintln(writer, queryLCA(a, b))
 	}
 }

@@ -6,6 +6,18 @@ import (
 	"os"
 )
 
+// isValidParentheses는 괄호 문자열이 올바르게 짝지어져 있는지 판별한다.
+//
+// [매개변수]
+//   - s: 소괄호, 중괄호, 대괄호로만 이루어진 문자열
+//
+// [반환값]
+//   - bool: 올바른 괄호 문자열이면 true, 아니면 false
+func isValidParentheses(s string) bool {
+	// 여기에 코드를 작성하세요
+	return false
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -20,42 +32,8 @@ func main() {
 		var s string
 		fmt.Fscan(reader, &s)
 
-		// 스택을 이용한 괄호 검사
-		stack := []rune{}
-		valid := true
-
-		for _, ch := range s {
-			switch ch {
-			case '(', '{', '[':
-				// 여는 괄호는 스택에 Push
-				stack = append(stack, ch)
-			case ')':
-				// 닫는 괄호: 스택이 비어 있거나 짝이 맞지 않으면 실패
-				if len(stack) == 0 || stack[len(stack)-1] != '(' {
-					valid = false
-				} else {
-					stack = stack[:len(stack)-1]
-				}
-			case '}':
-				if len(stack) == 0 || stack[len(stack)-1] != '{' {
-					valid = false
-				} else {
-					stack = stack[:len(stack)-1]
-				}
-			case ']':
-				if len(stack) == 0 || stack[len(stack)-1] != '[' {
-					valid = false
-				} else {
-					stack = stack[:len(stack)-1]
-				}
-			}
-			if !valid {
-				break
-			}
-		}
-
-		// 스택이 비어 있어야 모든 괄호가 짝지어진 것
-		if valid && len(stack) == 0 {
+		// 핵심 함수 호출
+		if isValidParentheses(s) {
 			fmt.Fprintln(writer, "YES")
 		} else {
 			fmt.Fprintln(writer, "NO")

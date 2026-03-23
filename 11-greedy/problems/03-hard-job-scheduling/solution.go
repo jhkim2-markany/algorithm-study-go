@@ -4,13 +4,19 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 )
 
-// Job 구조체는 작업의 마감 기한과 보상을 나타낸다
-type Job struct {
-	deadline int
-	profit   int
+// jobScheduling은 마감 기한과 보상이 주어진 작업들에서 최대 보상을 반환한다.
+//
+// [매개변수]
+//   - deadlines: 각 작업의 마감 기한 배열
+//   - profits: 각 작업의 보상 배열
+//
+// [반환값]
+//   - int: 얻을 수 있는 최대 보상
+func jobScheduling(deadlines, profits []int) int {
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -18,41 +24,15 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 작업 수 입력
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 각 작업의 마감 기한과 보상 입력
-	jobs := make([]Job, n)
-	maxDeadline := 0
+	deadlines := make([]int, n)
+	profits := make([]int, n)
 	for i := 0; i < n; i++ {
-		fmt.Fscan(reader, &jobs[i].deadline, &jobs[i].profit)
-		if jobs[i].deadline > maxDeadline {
-			maxDeadline = jobs[i].deadline
-		}
+		fmt.Fscan(reader, &deadlines[i], &profits[i])
 	}
 
-	// 보상 기준 내림차순 정렬 (보상이 큰 작업 우선)
-	sort.Slice(jobs, func(i, j int) bool {
-		return jobs[i].profit > jobs[j].profit
-	})
-
-	// 날짜별 작업 배정 여부를 추적하는 배열 (1-indexed)
-	scheduled := make([]bool, maxDeadline+1)
-	totalProfit := 0
-
-	for _, job := range jobs {
-		// 마감 기한 당일부터 1일차까지 역순으로 빈 날짜 탐색
-		for day := job.deadline; day >= 1; day-- {
-			if !scheduled[day] {
-				// 빈 날짜에 작업 배정
-				scheduled[day] = true
-				totalProfit += job.profit
-				break
-			}
-		}
-	}
-
-	// 결과 출력
-	fmt.Fprintln(writer, totalProfit)
+	result := jobScheduling(deadlines, profits)
+	fmt.Fprintln(writer, result)
 }

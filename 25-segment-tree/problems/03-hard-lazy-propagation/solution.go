@@ -11,70 +11,54 @@ var tree []int64
 var lazy []int64
 var n int
 
-// build 함수는 세그먼트 트리를 구축한다
+// build는 세그먼트 트리를 구축한다.
+//
+// [매개변수]
+//   - arr: 원본 배열
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
 func build(arr []int64, node, start, end int) {
-	if start == end {
-		// 리프 노드: 원본 배열 값 저장
-		tree[node] = arr[start]
-		return
-	}
-	mid := (start + end) / 2
-	build(arr, 2*node, start, mid)
-	build(arr, 2*node+1, mid+1, end)
-	// 내부 노드: 자식의 합
-	tree[node] = tree[2*node] + tree[2*node+1]
+	// 여기에 코드를 작성하세요
 }
 
-// pushDown 함수는 lazy 값을 자식 노드에 전파한다
+// pushDown은 lazy 값을 자식 노드에 전파한다.
+//
+// [매개변수]
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
 func pushDown(node, start, end int) {
-	if lazy[node] != 0 {
-		mid := (start + end) / 2
-		// 왼쪽 자식에 lazy 값 전파
-		tree[2*node] += lazy[node] * int64(mid-start+1)
-		lazy[2*node] += lazy[node]
-		// 오른쪽 자식에 lazy 값 전파
-		tree[2*node+1] += lazy[node] * int64(end-mid)
-		lazy[2*node+1] += lazy[node]
-		// 현재 노드의 lazy 값 초기화
-		lazy[node] = 0
-	}
+	// 여기에 코드를 작성하세요
 }
 
-// updateRange 함수는 구간 [l, r]에 val을 더한다
+// updateRange는 구간 [l, r]에 val을 더한다.
+//
+// [매개변수]
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
+//   - l: 갱신 구간 왼쪽 끝
+//   - r: 갱신 구간 오른쪽 끝
+//   - val: 더할 값
 func updateRange(node, start, end, l, r int, val int64) {
-	// 구간이 겹치지 않는 경우
-	if r < start || end < l {
-		return
-	}
-	// 구간이 완전히 포함되는 경우: lazy 값 저장
-	if l <= start && end <= r {
-		tree[node] += val * int64(end-start+1)
-		lazy[node] += val
-		return
-	}
-	// 부분적으로 겹치는 경우: lazy 전파 후 자식에 재귀
-	pushDown(node, start, end)
-	mid := (start + end) / 2
-	updateRange(2*node, start, mid, l, r, val)
-	updateRange(2*node+1, mid+1, end, l, r, val)
-	// 부모 노드 재계산
-	tree[node] = tree[2*node] + tree[2*node+1]
+	// 여기에 코드를 작성하세요
 }
 
-// query 함수는 구간 [l, r]의 합을 반환한다
+// query는 구간 [l, r]의 합을 반환한다.
+//
+// [매개변수]
+//   - node: 현재 노드 번호
+//   - start: 구간 시작 인덱스
+//   - end: 구간 끝 인덱스
+//   - l: 질의 구간 왼쪽 끝
+//   - r: 질의 구간 오른쪽 끝
+//
+// [반환값]
+//   - int64: 구간 [l, r]의 합
 func query(node, start, end, l, r int) int64 {
-	// 구간이 겹치지 않는 경우
-	if r < start || end < l {
-		return 0
-	}
-	// 구간이 완전히 포함되는 경우
-	if l <= start && end <= r {
-		return tree[node]
-	}
-	// 부분적으로 겹치는 경우: lazy 전파 후 자식에 재귀
-	pushDown(node, start, end)
-	mid := (start + end) / 2
-	return query(2*node, start, mid, l, r) + query(2*node+1, mid+1, end, l, r)
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -101,13 +85,11 @@ func main() {
 		fmt.Fscan(reader, &op)
 
 		if op == 1 {
-			// 구간 갱신: [l, r]에 v를 더한다 (1-indexed → 0-indexed)
 			var l, r int
 			var v int64
 			fmt.Fscan(reader, &l, &r, &v)
 			updateRange(1, 0, n-1, l-1, r-1, v)
 		} else {
-			// 구간 합 질의 (1-indexed → 0-indexed)
 			var l, r int
 			fmt.Fscan(reader, &l, &r)
 			fmt.Fprintln(writer, query(1, 0, n-1, l-1, r-1))

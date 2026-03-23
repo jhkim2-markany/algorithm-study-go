@@ -6,6 +6,19 @@ import (
 	"os"
 )
 
+// kthSmallest는 각 행이 정렬된 N×N 행렬에서 K번째로 작은 수를 반환한다.
+//
+// [매개변수]
+//   - matrix: 각 행이 오름차순 정렬된 N×N 정수 행렬
+//   - k: 찾을 순위 (1-indexed)
+//
+// [반환값]
+//   - int: K번째로 작은 수
+func kthSmallest(matrix [][]int, k int) int {
+	// 여기에 코드를 작성하세요
+	return 0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -28,45 +41,9 @@ func main() {
 	var k int
 	fmt.Fscan(reader, &k)
 
-	// 이진 탐색으로 K번째 수를 찾는다
-	// 탐색 범위: 행렬의 최솟값(좌상단) ~ 최댓값(우하단)
-	lo, hi := matrix[0][0], matrix[n-1][n-1]
+	// 핵심 함수 호출
+	result := kthSmallest(matrix, k)
 
-	for lo < hi {
-		mid := lo + (hi-lo)/2
-
-		// mid 이하인 원소의 개수를 센다
-		count := countLessOrEqual(matrix, n, mid)
-
-		if count < k {
-			// mid 이하인 원소가 K개 미만이면 답은 mid보다 크다
-			lo = mid + 1
-		} else {
-			// mid 이하인 원소가 K개 이상이면 답은 mid 이하이다
-			hi = mid
-		}
-	}
-
-	fmt.Fprintln(writer, lo)
-}
-
-// countLessOrEqual은 행렬에서 val 이하인 원소의 개수를 반환한다.
-// 각 행이 정렬되어 있으므로 행마다 upper_bound를 이진 탐색으로 구한다.
-// 시간 복잡도: O(N × log N)
-func countLessOrEqual(matrix [][]int, n int, val int) int {
-	count := 0
-	for i := 0; i < n; i++ {
-		// i번째 행에서 val 이하인 원소의 개수
-		lo, hi := 0, n
-		for lo < hi {
-			mid := (lo + hi) / 2
-			if matrix[i][mid] <= val {
-				lo = mid + 1
-			} else {
-				hi = mid
-			}
-		}
-		count += lo
-	}
-	return count
+	// 결과 출력
+	fmt.Fprintln(writer, result)
 }

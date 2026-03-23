@@ -7,19 +7,18 @@ import (
 	"sort"
 )
 
-var adj [][]int
-var result []int
-
-// preorder 함수는 전위 순회를 수행한다 (현재 노드 → 자식 노드)
-func preorder(cur, par int) {
-	// 현재 노드를 먼저 방문
-	result = append(result, cur)
-	// 자식 노드를 번호 순서대로 방문
-	for _, next := range adj[cur] {
-		if next != par {
-			preorder(next, cur)
-		}
-	}
+// preorderTraversal은 루트가 root인 트리를 전위 순회한 결과를 반환한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트 (1-indexed)
+//   - root: 시작 노드 번호
+//   - n: 노드 수
+//
+// [반환값]
+//   - []int: 전위 순회 결과 (노드 번호 순서)
+func preorderTraversal(adj [][]int, root, n int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
 }
 
 func main() {
@@ -32,7 +31,7 @@ func main() {
 	fmt.Fscan(reader, &n)
 
 	// 인접 리스트 초기화
-	adj = make([][]int, n+1)
+	adj := make([][]int, n+1)
 	for i := 0; i <= n; i++ {
 		adj[i] = []int{}
 	}
@@ -50,9 +49,8 @@ func main() {
 		sort.Ints(adj[i])
 	}
 
-	// 루트(1번)에서 전위 순회 시작
-	result = []int{}
-	preorder(1, 0)
+	// 핵심 함수 호출
+	result := preorderTraversal(adj, 1, n)
 
 	// 결과 출력
 	for i, v := range result {

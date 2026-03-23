@@ -14,7 +14,7 @@ const mod = 1000000007
 var fact [maxVal]int64
 var invFact [maxVal]int64
 
-// 모듈러 거듭제곱: base^exp mod m 을 계산한다
+// power는 모듈러 거듭제곱 base^exp mod m 을 계산한다
 func power(base, exp, m int64) int64 {
 	result := int64(1)
 	base %= m
@@ -28,7 +28,7 @@ func power(base, exp, m int64) int64 {
 	return result
 }
 
-// 팩토리얼과 역팩토리얼을 전처리한다
+// precompute는 팩토리얼과 역팩토리얼을 전처리한다
 func precompute() {
 	fact[0] = 1
 	for i := 1; i < maxVal; i++ {
@@ -40,21 +40,33 @@ func precompute() {
 	}
 }
 
-// (r1,c1)에서 (r2,c2)까지 장애물 없이 이동하는 경로 수를 구한다
-// 오른쪽 (c2-c1)번, 아래쪽 (r2-r1)번 이동 → C(dr+dc, dr)
+// pathCount는 (r1,c1)에서 (r2,c2)까지의 경로 수를 구한다
 func pathCount(r1, c1, r2, c2 int) int64 {
 	dr := r2 - r1
 	dc := c2 - c1
 	if dr < 0 || dc < 0 {
 		return 0
 	}
-	// C(dr+dc, dr) mod p
 	return fact[dr+dc] % mod * invFact[dr] % mod * invFact[dc] % mod
 }
 
-// 장애물 좌표를 저장하는 구조체
+// obstacle은 장애물 좌표를 저장하는 구조체이다
 type obstacle struct {
 	r, c int
+}
+
+// gridPathCount는 장애물이 있는 격자에서 (1,1)에서 (n,m)까지의 경로 수를 구한다.
+//
+// [매개변수]
+//   - n: 격자의 행 수
+//   - m: 격자의 열 수
+//   - obs: 장애물 좌표 목록 (행, 열 순으로 정렬됨)
+//
+// [반환값]
+//   - int64: 장애물을 피하는 경로 수 (mod 1000000007)
+func gridPathCount(n, m int, obs []obstacle) int64 {
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -65,17 +77,15 @@ func main() {
 	// 팩토리얼 전처리
 	precompute()
 
-	// 격자 크기와 장애물 수 입력
 	var n, m, k int
 	fmt.Fscan(reader, &n, &m, &k)
 
-	// 장애물 좌표 입력
 	obs := make([]obstacle, k)
 	for i := 0; i < k; i++ {
 		fmt.Fscan(reader, &obs[i].r, &obs[i].c)
 	}
 
-	// 장애물을 행, 열 순으로 정렬한다
+	// 장애물을 행, 열 순으로 정렬
 	sort.Slice(obs, func(i, j int) bool {
 		if obs[i].r != obs[j].r {
 			return obs[i].r < obs[j].r
@@ -83,26 +93,8 @@ func main() {
 		return obs[i].c < obs[j].c
 	})
 
-	// 도착점을 장애물 목록 끝에 추가한다 (포함-배제 계산용)
-	obs = append(obs, obstacle{n, m})
+	// 핵심 함수 호출
+	result := gridPathCount(n, m, obs)
 
-	// dp[i]: (1,1)에서 obs[i]까지 장애물을 하나도 지나지 않는 경로 수
-	dp := make([]int64, len(obs))
-
-	for i := 0; i < len(obs); i++ {
-		// (1,1)에서 obs[i]까지의 전체 경로 수
-		dp[i] = pathCount(1, 1, obs[i].r, obs[i].c)
-
-		// 중간에 다른 장애물을 지나는 경로를 빼준다 (포함-배제)
-		for j := 0; j < i; j++ {
-			if obs[j].r <= obs[i].r && obs[j].c <= obs[i].c {
-				// obs[j]를 반드시 지나는 경로 수를 빼준다
-				sub := dp[j] * pathCount(obs[j].r, obs[j].c, obs[i].r, obs[i].c) % mod
-				dp[i] = (dp[i] - sub%mod + mod) % mod
-			}
-		}
-	}
-
-	// 마지막 원소(도착점)의 dp 값이 정답이다
-	fmt.Fprintln(writer, dp[len(obs)-1])
+	fmt.Fprintln(writer, result)
 }

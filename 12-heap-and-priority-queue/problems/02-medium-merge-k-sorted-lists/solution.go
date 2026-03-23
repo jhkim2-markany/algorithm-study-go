@@ -2,16 +2,15 @@ package main
 
 import (
 	"bufio"
-	"container/heap"
 	"fmt"
 	"os"
 )
 
 // Item은 힙에 저장되는 원소로, 값과 출처 리스트 정보를 포함한다.
 type Item struct {
-	value   int // 원소 값
-	listIdx int // 출처 리스트 번호
-	elemIdx int // 해당 리스트 내 인덱스
+	value   int
+	listIdx int
+	elemIdx int
 }
 
 // ItemHeap은 Item의 최소 힙이다.
@@ -31,6 +30,18 @@ func (h *ItemHeap) Pop() interface{} {
 	x := old[n-1]
 	*h = old[:n-1]
 	return x
+}
+
+// mergeKSortedLists는 K개의 정렬된 리스트를 하나의 정렬된 배열로 병합한다.
+//
+// [매개변수]
+//   - lists: K개의 정렬된 정수 배열
+//
+// [반환값]
+//   - []int: 병합된 하나의 정렬된 배열
+func mergeKSortedLists(lists [][]int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
 }
 
 func main() {
@@ -53,35 +64,15 @@ func main() {
 		}
 	}
 
-	// 각 리스트의 첫 번째 원소를 힙에 삽입
-	h := &ItemHeap{}
-	heap.Init(h)
-	for i := 0; i < k; i++ {
-		if len(lists[i]) > 0 {
-			heap.Push(h, Item{lists[i][0], i, 0})
-		}
-	}
+	// 핵심 함수 호출
+	result := mergeKSortedLists(lists)
 
-	// 힙에서 최솟값을 꺼내고, 해당 리스트의 다음 원소를 삽입
-	first := true
-	for h.Len() > 0 {
-		item := heap.Pop(h).(Item)
-
-		if !first {
+	// 결과 출력
+	for i, v := range result {
+		if i > 0 {
 			fmt.Fprint(writer, " ")
 		}
-		fmt.Fprint(writer, item.value)
-		first = false
-
-		// 같은 리스트의 다음 원소가 있으면 힙에 추가
-		nextIdx := item.elemIdx + 1
-		if nextIdx < len(lists[item.listIdx]) {
-			heap.Push(h, Item{
-				value:   lists[item.listIdx][nextIdx],
-				listIdx: item.listIdx,
-				elemIdx: nextIdx,
-			})
-		}
+		fmt.Fprint(writer, v)
 	}
 	fmt.Fprintln(writer)
 }

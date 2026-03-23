@@ -6,6 +6,18 @@ import (
 	"os"
 )
 
+// sieveOfEratosthenes는 2 이상 n 이하의 모든 소수를 반환한다.
+//
+// [매개변수]
+//   - n: 소수를 구할 상한값
+//
+// [반환값]
+//   - []int: 2 이상 n 이하의 소수 배열 (오름차순)
+func sieveOfEratosthenes(n int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -15,29 +27,8 @@ func main() {
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 에라토스테네스의 체: 소수 여부 배열 초기화
-	isPrime := make([]bool, n+1)
-	for i := 2; i <= n; i++ {
-		isPrime[i] = true
-	}
-
-	// 2부터 √N까지 순회하며 배수를 제거한다
-	for i := 2; i*i <= n; i++ {
-		if isPrime[i] {
-			// i의 배수를 합성수로 표시 (i*i부터 시작)
-			for j := i * i; j <= n; j += i {
-				isPrime[j] = false
-			}
-		}
-	}
-
-	// 소수 목록 수집
-	primes := []int{}
-	for i := 2; i <= n; i++ {
-		if isPrime[i] {
-			primes = append(primes, i)
-		}
-	}
+	// 핵심 함수 호출
+	primes := sieveOfEratosthenes(n)
 
 	// 소수 개수 출력
 	fmt.Fprintln(writer, len(primes))

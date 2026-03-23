@@ -6,27 +6,31 @@ import (
 	"os"
 )
 
+// nimGameWinner는 님 게임의 승자를 판별한다.
+//
+// [매개변수]
+//   - piles: 각 돌 더미의 돌 개수 배열
+//
+// [반환값]
+//   - string: 선수 승리이면 "First", 후수 승리이면 "Second"
+func nimGameWinner(piles []int) string {
+	// 여기에 코드를 작성하세요
+	return ""
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 돌 더미의 수 입력
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 모든 더미의 돌 개수를 XOR한다
-	xorSum := 0
+	piles := make([]int, n)
 	for i := 0; i < n; i++ {
-		var a int
-		fmt.Fscan(reader, &a)
-		xorSum ^= a
+		fmt.Fscan(reader, &piles[i])
 	}
 
-	// XOR 합이 0이 아니면 선수 승리, 0이면 후수 승리
-	if xorSum != 0 {
-		fmt.Fprintln(writer, "First")
-	} else {
-		fmt.Fprintln(writer, "Second")
-	}
+	// 핵심 함수 호출
+	fmt.Fprintln(writer, nimGameWinner(piles))
 }

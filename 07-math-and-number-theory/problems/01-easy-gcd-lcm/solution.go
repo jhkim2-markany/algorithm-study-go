@@ -6,12 +6,18 @@ import (
 	"os"
 )
 
-// gcd 함수는 유클리드 호제법으로 최대공약수를 구한다
-func gcd(a, b int) int {
-	for b != 0 {
-		a, b = b, a%b
-	}
-	return a
+// gcdLcm은 두 자연수의 최대공약수와 최소공배수를 반환한다.
+//
+// [매개변수]
+//   - a: 첫 번째 자연수
+//   - b: 두 번째 자연수
+//
+// [반환값]
+//   - int: 최대공약수(GCD)
+//   - int: 최소공배수(LCM)
+func gcdLcm(a, b int) (int, int) {
+	// 여기에 코드를 작성하세요
+	return 0, 0
 }
 
 func main() {
@@ -23,11 +29,8 @@ func main() {
 	var a, b int
 	fmt.Fscan(reader, &a, &b)
 
-	// 최대공약수 계산
-	g := gcd(a, b)
-
-	// 최소공배수 계산: LCM = a / GCD * b (오버플로 방지)
-	l := a / g * b
+	// 핵심 함수 호출
+	g, l := gcdLcm(a, b)
 
 	// 결과 출력
 	fmt.Fprintln(writer, g)

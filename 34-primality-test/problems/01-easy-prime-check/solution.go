@@ -6,27 +6,16 @@ import (
 	"os"
 )
 
-// 시행 나눗셈으로 소수를 판정한다
+// isPrime은 주어진 정수가 소수인지 판정한다.
+//
+// [매개변수]
+//   - n: 판정할 양의 정수
+//
+// [반환값]
+//   - bool: 소수이면 true, 아니면 false
 func isPrime(n int) bool {
-	// 2 미만은 소수가 아니다
-	if n < 2 {
-		return false
-	}
-	// 2는 소수이다
-	if n == 2 {
-		return true
-	}
-	// 짝수는 소수가 아니다
-	if n%2 == 0 {
-		return false
-	}
-	// 3부터 √N까지 홀수로 나누어 본다
-	for i := 3; i*i <= n; i += 2 {
-		if n%i == 0 {
-			return false
-		}
-	}
-	return true
+	// 여기에 코드를 작성하세요
+	return false
 }
 
 func main() {
@@ -34,7 +23,6 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 테스트 케이스 수 입력
 	var t int
 	fmt.Fscan(reader, &t)
 
@@ -42,7 +30,6 @@ func main() {
 		var n int
 		fmt.Fscan(reader, &n)
 
-		// 소수 여부를 판별하여 출력한다
 		if isPrime(n) {
 			fmt.Fprintln(writer, "YES")
 		} else {

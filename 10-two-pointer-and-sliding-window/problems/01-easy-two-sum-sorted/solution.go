@@ -6,6 +6,20 @@ import (
 	"os"
 )
 
+// twoSumSorted는 정렬된 배열에서 합이 target인 두 원소의 인덱스를 반환한다.
+//
+// [매개변수]
+//   - arr: 오름차순 정렬된 정수 배열
+//   - target: 두 수의 합이 되어야 하는 목표값
+//
+// [반환값]
+//   - int, int: 합이 target인 두 원소의 인덱스 (1-indexed)
+//   - bool: 조건을 만족하는 쌍을 찾았으면 true, 없으면 false
+func twoSumSorted(arr []int, target int) (int, int, bool) {
+	// 여기에 코드를 작성하세요
+	return 0, 0, false
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -21,22 +35,9 @@ func main() {
 		fmt.Fscan(reader, &arr[i])
 	}
 
-	// 투 포인터: 양쪽 끝에서 시작
-	left, right := 0, n-1
-
-	for left < right {
-		sum := arr[left] + arr[right]
-
-		if sum == t {
-			// 합이 목표값과 같으면 1-based 인덱스 출력
-			fmt.Fprintf(writer, "%d %d\n", left+1, right+1)
-			return
-		} else if sum < t {
-			// 합이 작으면 왼쪽 포인터를 오른쪽으로 이동
-			left++
-		} else {
-			// 합이 크면 오른쪽 포인터를 왼쪽으로 이동
-			right--
-		}
+	// 핵심 함수 호출
+	l, r, found := twoSumSorted(arr, t)
+	if found {
+		fmt.Fprintf(writer, "%d %d\n", l, r)
 	}
 }

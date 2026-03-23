@@ -6,6 +6,19 @@ import (
 	"os"
 )
 
+// rangeSum은 배열과 구간 쿼리 목록을 받아 각 구간의 합을 반환한다.
+//
+// [매개변수]
+//   - arr: 정수 배열 (0-indexed)
+//   - queries: 구간 쿼리 배열, 각 쿼리는 [l, r] (1-indexed)
+//
+// [반환값]
+//   - []int: 각 쿼리에 대한 구간 합 결과 배열
+func rangeSum(arr []int, queries [][2]int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -21,18 +34,17 @@ func main() {
 		fmt.Fscan(reader, &arr[i])
 	}
 
-	// 누적합 배열 구축 (1-indexed)
-	// prefix[i] = arr[0] + arr[1] + ... + arr[i-1]
-	prefix := make([]int, n+1)
-	for i := 1; i <= n; i++ {
-		prefix[i] = prefix[i-1] + arr[i-1]
+	// 쿼리 입력
+	queries := make([][2]int, m)
+	for i := 0; i < m; i++ {
+		fmt.Fscan(reader, &queries[i][0], &queries[i][1])
 	}
 
-	// 각 쿼리에 대해 구간 합 계산
-	for i := 0; i < m; i++ {
-		var l, r int
-		fmt.Fscan(reader, &l, &r)
-		// 구간 [l, r]의 합 = prefix[r] - prefix[l-1] (1-indexed)
-		fmt.Fprintln(writer, prefix[r]-prefix[l-1])
+	// 핵심 함수 호출
+	results := rangeSum(arr, queries)
+
+	// 결과 출력
+	for _, r := range results {
+		fmt.Fprintln(writer, r)
 	}
 }

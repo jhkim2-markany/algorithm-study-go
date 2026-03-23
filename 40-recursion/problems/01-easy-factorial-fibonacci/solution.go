@@ -6,32 +6,29 @@ import (
 	"os"
 )
 
-// 팩토리얼을 재귀로 계산
+// factorial은 재귀를 이용하여 n!을 계산한다.
+//
+// [매개변수]
+//   - n: 팩토리얼을 구할 음이 아닌 정수
+//
+// [반환값]
+//   - int: n!의 값
 func factorial(n int) int {
-	// 기저 조건: 0! = 1, 1! = 1
-	if n <= 1 {
-		return 1
-	}
-	return n * factorial(n-1)
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
-// 피보나치를 메모이제이션 재귀로 계산
+// fibonacci는 메모이제이션 재귀를 이용하여 n번째 피보나치 수를 계산한다.
+//
+// [매개변수]
+//   - n: 피보나치 수열의 인덱스 (0-indexed)
+//   - memo: 이미 계산된 결과를 저장하는 맵
+//
+// [반환값]
+//   - int: n번째 피보나치 수
 func fibonacci(n int, memo map[int]int) int {
-	// 캐시 확인
-	if val, ok := memo[n]; ok {
-		return val
-	}
-	// 기저 조건
-	if n <= 0 {
-		return 0
-	}
-	if n == 1 {
-		return 1
-	}
-	// 재귀 호출 후 결과 저장
-	result := fibonacci(n-1, memo) + fibonacci(n-2, memo)
-	memo[n] = result
-	return result
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -39,15 +36,12 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: N과 M
 	var n, m int
 	fmt.Fscan(reader, &n)
 	fmt.Fscan(reader, &m)
 
-	// 팩토리얼 계산 및 출력
 	fmt.Fprintln(writer, factorial(n))
 
-	// 피보나치 계산 및 출력
 	memo := make(map[int]int)
 	fmt.Fprintln(writer, fibonacci(m, memo))
 }

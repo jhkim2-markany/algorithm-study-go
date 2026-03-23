@@ -7,35 +7,40 @@ import (
 	"os"
 )
 
+// polygonArea는 다각형의 넓이를 구한다.
+//
+// [매개변수]
+//   - x: 꼭짓점의 x 좌표 배열
+//   - y: 꼭짓점의 y 좌표 배열
+//   - n: 꼭짓점의 수
+//
+// [반환값]
+//   - float64: 다각형의 넓이
+func polygonArea(x, y []int64, n int) float64 {
+	// 여기에 코드를 작성하세요
+	return 0.0
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 꼭짓점 수 입력
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 꼭짓점 좌표 입력
 	x := make([]int64, n)
 	y := make([]int64, n)
 	for i := 0; i < n; i++ {
 		fmt.Fscan(reader, &x[i], &y[i])
 	}
 
-	// 신발끈 공식 (Shoelace Formula)으로 다각형 넓이 계산
-	// 넓이 = |Σ(x_i * y_{i+1} - x_{i+1} * y_i)| / 2
-	var sum int64
-	for i := 0; i < n; i++ {
-		// 다음 꼭짓점 인덱스 (마지막 점은 첫 번째 점과 연결)
-		j := (i + 1) % n
-		// 외적 누적: x_i * y_j - x_j * y_i
-		sum += x[i]*y[j] - x[j]*y[i]
-	}
-
-	// 절댓값을 취하고 2로 나누어 넓이를 구한다
-	area := math.Abs(float64(sum)) / 2.0
+	// 핵심 함수 호출
+	area := polygonArea(x, y, n)
 
 	// 소수점 첫째 자리까지 출력
 	fmt.Fprintf(writer, "%.1f\n", area)
+
+	// math 패키지 사용을 위한 더미 참조
+	_ = math.Abs
 }

@@ -6,17 +6,17 @@ import (
 	"os"
 )
 
-var adj [][]int
-var visited []bool
-
-// dfs 함수는 현재 정점에서 연결된 모든 정점을 방문한다
-func dfs(v int) {
-	visited[v] = true
-	for _, next := range adj[v] {
-		if !visited[next] {
-			dfs(next)
-		}
-	}
+// countConnectedComponents는 무방향 그래프의 연결 요소 개수를 반환한다.
+//
+// [매개변수]
+//   - adj: 인접 리스트 (1-indexed)
+//   - n: 정점 수
+//
+// [반환값]
+//   - int: 연결 요소의 개수
+func countConnectedComponents(adj [][]int, n int) int {
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 	fmt.Fscan(reader, &n, &m)
 
 	// 인접 리스트 초기화
-	adj = make([][]int, n+1)
+	adj := make([][]int, n+1)
 	for i := 0; i <= n; i++ {
 		adj[i] = []int{}
 	}
@@ -42,17 +42,9 @@ func main() {
 		adj[v] = append(adj[v], u)
 	}
 
-	// 모든 정점을 순회하며 연결 요소 개수를 센다
-	visited = make([]bool, n+1)
-	count := 0
-	for i := 1; i <= n; i++ {
-		if !visited[i] {
-			// 미방문 정점에서 DFS 시작 → 새로운 연결 요소 발견
-			dfs(i)
-			count++
-		}
-	}
+	// 핵심 함수 호출
+	result := countConnectedComponents(adj, n)
 
 	// 결과 출력
-	fmt.Fprintln(writer, count)
+	fmt.Fprintln(writer, result)
 }

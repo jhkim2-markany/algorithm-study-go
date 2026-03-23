@@ -262,6 +262,9 @@ func TestFolderStructureCompleteness(t *testing.T) {
 						if !fileExists(filepath.Join(subPath, "solution.go")) {
 							t.Errorf("%s/problems/%s: solution.go가 존재하지 않습니다", folder, sub)
 						}
+						if !fileExists(filepath.Join(subPath, "answer.go")) {
+							t.Errorf("%s/problems/%s: answer.go가 존재하지 않습니다", folder, sub)
+						}
 						if !fileExists(filepath.Join(subPath, "explanation.md")) {
 							t.Errorf("%s/problems/%s: explanation.md가 존재하지 않습니다", folder, sub)
 						}
@@ -548,5 +551,186 @@ func TestTheoryDocSupplementCompleteness(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// TestProblemFolderFileCompleteness verifies all 201 problem folders contain the required 4 files.
+// **Validates: Requirements 1.7, 5.1**
+// Feature: hackerrank-style-refactor, Property 1: 문제 폴더 파일 완전성
+func TestProblemFolderFileCompleteness(t *testing.T) {
+	requiredFiles := []string{"problem.md", "solution.go", "answer.go", "explanation.md"}
+	for _, folder := range algorithmFolders {
+		problemsDir := filepath.Join(folderPath(folder), "problems")
+		subDirs, err := listSubDirs(problemsDir)
+		if err != nil {
+			t.Errorf("%s: problems/ 디렉토리 읽기 실패: %v", folder, err)
+			continue
+		}
+		for _, sub := range subDirs {
+			t.Run(folder+"/"+sub, func(t *testing.T) {
+				subPath := filepath.Join(problemsDir, sub)
+				for _, reqFile := range requiredFiles {
+					if !fileExists(filepath.Join(subPath, reqFile)) {
+						t.Errorf("%s/problems/%s: %s가 존재하지 않습니다", folder, sub, reqFile)
+					}
+				}
+			})
+		}
+	}
+}
+
+// TestAnswerGoCodeConventions verifies all answer.go files follow Go code conventions.
+// **Validates: Requirements 1.1, 3.5, 3.6, 3.7, 3.8**
+// Feature: hackerrank-style-refactor, Property 2: answer.go Go 코드 규칙 준수
+func TestAnswerGoCodeConventions(t *testing.T) {
+	koreanPattern := regexp.MustCompile(`[\x{AC00}-\x{D7AF}]`)
+	importPattern := regexp.MustCompile(`(?m)^import\s+\(\s*\n([\s\S]*?)\n\s*\)`)
+	singleImportPattern := regexp.MustCompile(`(?m)^import\s+"([^"]+)"`)
+
+	for _, folder := range algorithmFolders {
+		problemsDir := filepath.Join(folderPath(folder), "problems")
+		subDirs, err := listSubDirs(problemsDir)
+		if err != nil {
+			t.Errorf("%s: problems/ 디렉토리 읽기 실패: %v", folder, err)
+			continue
+		}
+		for _, sub := range subDirs {
+			t.Run(folder+"/"+sub, func(t *testing.T) {
+				answerPath := filepath.Join(problemsDir, sub, "answer.go")
+				content, err := readFileContent(answerPath)
+				if err != nil {
+					t.Fatalf("answer.go 읽기 실패: %v", err)
+				}
+				if !strings.Contains(content, "package main") {
+					t.Errorf("'package main' 선언이 없습니다")
+				}
+				if !strings.Contains(content, "func main()") {
+					t.Errorf("'func main()' 함수가 없습니다")
+				}
+				lines := strings.Split(content, "\n")
+				hasKoreanComment := false
+				for _, line := range lines {
+					trimmed := strings.TrimSpace(line)
+					if strings.HasPrefix(trimmed, "//") && koreanPattern.MatchString(trimmed) {
+						hasKoreanComment = true
+						break
+					}
+				}
+				if !hasKoreanComment {
+					t.Errorf("한국어 주석이 없습니다")
+				}
+				matches := importPattern.FindStringSubmatch(content)
+				if len(matches) > 1 {
+					for _, imp := range strings.Split(matches[1], "\n") {
+						imp = strings.TrimSpace(strings.Trim(strings.TrimSpace(imp), "\""))
+						if imp != "" && !allowedImports[imp] {
+							t.Errorf("허용되지 않은 import: %s", imp)
+						}
+					}
+				}
+				for _, m := range singleImportPattern.FindAllStringSubmatch(content, -1) {
+					if len(m) > 1 && !allowedImports[m[1]] {
+						t.Errorf("허용되지 않은 import: %s", m[1])
+					}
+				}
+			})
+		}
+	}
+}
+
+// TestSolutionGoCodeConventions verifies all solution.go files in problems/ follow Go code conventions.
+// **Validates: Requirements 1.3, 3.1, 3.2, 3.3, 3.4**
+// Feature: hackerrank-style-refactor, Property 3: solution.go Go 코드 규칙 준수
+func TestSolutionGoCodeConventions(t *testing.T) {
+	koreanPattern := regexp.MustCompile(`[\x{AC00}-\x{D7AF}]`)
+	importPattern := regexp.MustCompile(`(?m)^import\s+\(\s*\n([\s\S]*?)\n\s*\)`)
+	singleImportPattern := regexp.MustCompile(`(?m)^import\s+"([^"]+)"`)
+
+	for _, folder := range algorithmFolders {
+		problemsDir := filepath.Join(folderPath(folder), "problems")
+		subDirs, err := listSubDirs(problemsDir)
+		if err != nil {
+			t.Errorf("%s: problems/ 디렉토리 읽기 실패: %v", folder, err)
+			continue
+		}
+		for _, sub := range subDirs {
+			t.Run(folder+"/"+sub, func(t *testing.T) {
+				solutionPath := filepath.Join(problemsDir, sub, "solution.go")
+				content, err := readFileContent(solutionPath)
+				if err != nil {
+					t.Fatalf("solution.go 읽기 실패: %v", err)
+				}
+				if !strings.Contains(content, "package main") {
+					t.Errorf("'package main' 선언이 없습니다")
+				}
+				if !strings.Contains(content, "func main()") {
+					t.Errorf("'func main()' 함수가 없습니다")
+				}
+				lines := strings.Split(content, "\n")
+				hasKoreanComment := false
+				for _, line := range lines {
+					trimmed := strings.TrimSpace(line)
+					if strings.HasPrefix(trimmed, "//") && koreanPattern.MatchString(trimmed) {
+						hasKoreanComment = true
+						break
+					}
+				}
+				if !hasKoreanComment {
+					t.Errorf("한국어 주석이 없습니다")
+				}
+				matches := importPattern.FindStringSubmatch(content)
+				if len(matches) > 1 {
+					for _, imp := range strings.Split(matches[1], "\n") {
+						imp = strings.TrimSpace(strings.Trim(strings.TrimSpace(imp), "\""))
+						if imp != "" && !allowedImports[imp] {
+							t.Errorf("허용되지 않은 import: %s", imp)
+						}
+					}
+				}
+				for _, m := range singleImportPattern.FindAllStringSubmatch(content, -1) {
+					if len(m) > 1 && !allowedImports[m[1]] {
+						t.Errorf("허용되지 않은 import: %s", m[1])
+					}
+				}
+			})
+		}
+	}
+}
+
+// TestSolutionGoEmptyFunctionPattern verifies all solution.go files have empty core function pattern.
+// **Validates: Requirements 1.2, 1.4, 2.2**
+// Feature: hackerrank-style-refactor, Property 4: solution.go 빈 핵심 함수 패턴
+func TestSolutionGoEmptyFunctionPattern(t *testing.T) {
+	funcPattern := regexp.MustCompile(`func\s+(\w+)\s*\(`)
+
+	for _, folder := range algorithmFolders {
+		problemsDir := filepath.Join(folderPath(folder), "problems")
+		subDirs, err := listSubDirs(problemsDir)
+		if err != nil {
+			t.Errorf("%s: problems/ 디렉토리 읽기 실패: %v", folder, err)
+			continue
+		}
+		for _, sub := range subDirs {
+			t.Run(folder+"/"+sub, func(t *testing.T) {
+				solutionPath := filepath.Join(problemsDir, sub, "solution.go")
+				content, err := readFileContent(solutionPath)
+				if err != nil {
+					t.Fatalf("solution.go 읽기 실패: %v", err)
+				}
+				matches := funcPattern.FindAllStringSubmatch(content, -1)
+				nonMainFuncs := 0
+				for _, m := range matches {
+					if len(m) > 1 && m[1] != "main" {
+						nonMainFuncs++
+					}
+				}
+				if nonMainFuncs < 1 {
+					t.Errorf("main 외 함수가 없습니다 (최소 1개 필요)")
+				}
+				if !strings.Contains(content, "// 여기에 코드를 작성하세요") {
+					t.Errorf("'// 여기에 코드를 작성하세요' 안내 주석이 없습니다")
+				}
+			})
+		}
 	}
 }

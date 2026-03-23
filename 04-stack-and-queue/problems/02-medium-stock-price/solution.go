@@ -6,6 +6,18 @@ import (
 	"os"
 )
 
+// stockPrice는 각 날짜의 주식 가격이 떨어지지 않은 기간(일수)을 반환한다.
+//
+// [매개변수]
+//   - prices: N일 동안의 주식 가격 배열
+//
+// [반환값]
+//   - []int: 각 날짜별 가격이 떨어지지 않은 기간(일수) 배열
+func stockPrice(prices []int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -21,30 +33,8 @@ func main() {
 		fmt.Fscan(reader, &prices[i])
 	}
 
-	// 결과 배열: 각 날짜의 가격이 떨어지지 않은 기간
-	answer := make([]int, n)
-
-	// 스택에는 아직 가격이 떨어지는 날을 찾지 못한 날짜의 인덱스를 저장한다
-	stack := []int{}
-
-	for i := 0; i < n; i++ {
-		// 현재 가격이 스택 맨 위 날짜의 가격보다 낮으면
-		// 스택 맨 위 날짜의 답을 확정한다
-		for len(stack) > 0 && prices[stack[len(stack)-1]] > prices[i] {
-			top := stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-			// 가격이 떨어지지 않은 기간 = 현재 날짜 - 해당 날짜
-			answer[top] = i - top
-		}
-		stack = append(stack, i)
-	}
-
-	// 스택에 남은 날짜들은 끝까지 가격이 떨어지지 않은 경우
-	for len(stack) > 0 {
-		top := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
-		answer[top] = (n - 1) - top
-	}
+	// 핵심 함수 호출
+	answer := stockPrice(prices)
 
 	// 결과 출력
 	for i := 0; i < n; i++ {

@@ -2,12 +2,11 @@ package main
 
 import (
 	"bufio"
-	"container/heap"
 	"fmt"
 	"os"
 )
 
-// 최대 힙: 중앙값 이하의 값들을 저장한다 (왼쪽 절반)
+// MaxHeap은 정수 최대 힙이다 (중앙값 이하의 값들을 저장).
 type MaxHeap []int
 
 func (h MaxHeap) Len() int           { return len(h) }
@@ -26,7 +25,7 @@ func (h *MaxHeap) Pop() interface{} {
 	return x
 }
 
-// 최소 힙: 중앙값 초과의 값들을 저장한다 (오른쪽 절반)
+// MinHeap은 정수 최소 힙이다 (중앙값 초과의 값들을 저장).
 type MinHeap []int
 
 func (h MinHeap) Len() int           { return len(h) }
@@ -45,6 +44,18 @@ func (h *MinHeap) Pop() interface{} {
 	return x
 }
 
+// findMedians는 수열이 하나씩 주어질 때마다 현재까지의 중앙값을 반환한다.
+//
+// [매개변수]
+//   - nums: N개의 정수가 순서대로 주어지는 배열
+//
+// [반환값]
+//   - []int: 각 수가 추가될 때마다의 중앙값 배열 (길이 N)
+func findMedians(nums []int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
@@ -53,35 +64,16 @@ func main() {
 	var n int
 	fmt.Fscan(reader, &n)
 
-	// 최대 힙(왼쪽)과 최소 힙(오른쪽)을 사용하여 중앙값을 유지한다.
-	// 규칙: maxH의 크기 >= minH의 크기 (차이는 최대 1)
-	// 중앙값은 항상 maxH의 루트(최댓값)이다.
-	maxH := &MaxHeap{} // 작은 쪽 절반
-	minH := &MinHeap{} // 큰 쪽 절반
-	heap.Init(maxH)
-	heap.Init(minH)
-
+	nums := make([]int, n)
 	for i := 0; i < n; i++ {
-		var x int
-		fmt.Fscan(reader, &x)
+		fmt.Fscan(reader, &nums[i])
+	}
 
-		// 새 값을 적절한 힙에 삽입
-		if maxH.Len() == 0 || x <= (*maxH)[0] {
-			heap.Push(maxH, x)
-		} else {
-			heap.Push(minH, x)
-		}
+	// 핵심 함수 호출
+	medians := findMedians(nums)
 
-		// 크기 균형 조정: maxH의 크기가 minH보다 1 크거나 같도록 유지
-		if maxH.Len() > minH.Len()+1 {
-			// maxH에서 minH로 이동
-			heap.Push(minH, heap.Pop(maxH))
-		} else if minH.Len() > maxH.Len() {
-			// minH에서 maxH로 이동
-			heap.Push(maxH, heap.Pop(minH))
-		}
-
-		// 중앙값 출력: maxH의 루트가 중앙값
-		fmt.Fprintln(writer, (*maxH)[0])
+	// 결과 출력
+	for _, v := range medians {
+		fmt.Fprintln(writer, v)
 	}
 }

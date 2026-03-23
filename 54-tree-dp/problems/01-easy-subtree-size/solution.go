@@ -6,21 +6,17 @@ import (
 	"os"
 )
 
-var (
-	adj [][]int // 인접 리스트
-	sz  []int   // 서브트리 크기
-)
-
-// dfs는 후위 순회로 서브트리 크기를 계산한다
-func dfs(v, parent int) {
-	sz[v] = 1
-	for _, u := range adj[v] {
-		if u == parent {
-			continue // 부모 방향 역행 방지
-		}
-		dfs(u, v)
-		sz[v] += sz[u] // 자식 서브트리 크기 합산
-	}
+// subtreeSize는 루트에서 DFS를 수행하여 각 노드의 서브트리 크기를 계산한다.
+//
+// [매개변수]
+//   - n: 노드의 수
+//   - adj: 인접 리스트
+//
+// [반환값]
+//   - []int: 각 노드의 서브트리 크기 배열 (1-indexed)
+func subtreeSize(n int, adj [][]int) []int {
+	// 여기에 코드를 작성하세요
+	return nil
 }
 
 func main() {
@@ -28,14 +24,10 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: 노드 수
 	var n int
 	fmt.Fscan(reader, &n)
 
-	adj = make([][]int, n+1)
-	sz = make([]int, n+1)
-
-	// 입력: 간선 정보
+	adj := make([][]int, n+1)
 	for i := 0; i < n-1; i++ {
 		var u, v int
 		fmt.Fscan(reader, &u, &v)
@@ -43,10 +35,8 @@ func main() {
 		adj[v] = append(adj[v], u)
 	}
 
-	// 루트(1번)에서 DFS 수행
-	dfs(1, 0)
+	sz := subtreeSize(n, adj)
 
-	// 출력: 각 노드의 서브트리 크기
 	for i := 1; i <= n; i++ {
 		if i > 1 {
 			fmt.Fprint(writer, " ")

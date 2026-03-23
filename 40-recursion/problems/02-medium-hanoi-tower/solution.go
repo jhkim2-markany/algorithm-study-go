@@ -6,41 +6,41 @@ import (
 	"os"
 )
 
-var writer *bufio.Writer
-
-// 하노이의 탑 재귀 함수
-// n개의 원판을 from 기둥에서 to 기둥으로 옮긴다 (aux를 보조 기둥으로 사용)
-func hanoi(n, from, to, aux int) {
-	// 기저 조건: 원판이 1개이면 바로 옮긴다
-	if n == 1 {
-		fmt.Fprintf(writer, "%d %d\n", from, to)
-		return
-	}
-	// 1단계: 위의 n-1개 원판을 보조 기둥으로 옮긴다
-	hanoi(n-1, from, aux, to)
-	// 2단계: 가장 큰 원판을 목표 기둥으로 옮긴다
-	fmt.Fprintf(writer, "%d %d\n", from, to)
-	// 3단계: 보조 기둥의 n-1개 원판을 목표 기둥으로 옮긴다
-	hanoi(n-1, aux, to, from)
+// hanoi는 하노이의 탑 문제를 재귀적으로 풀어 이동 과정을 moves 슬라이스에 기록한다.
+//
+// [매개변수]
+//   - n: 원판의 수
+//   - from: 출발 기둥 번호
+//   - to: 목표 기둥 번호
+//   - aux: 보조 기둥 번호
+//   - moves: 이동 기록을 저장할 슬라이스 포인터 (각 원소는 [2]int{출발, 도착})
+//
+// [반환값]
+//   - 없음 (moves 슬라이스에 결과를 기록)
+func hanoi(n, from, to, aux int, moves *[][2]int) {
+	// 여기에 코드를 작성하세요
 }
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	writer = bufio.NewWriter(os.Stdout)
+	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: 원판의 수
 	var n int
 	fmt.Fscan(reader, &n)
 
 	// 총 이동 횟수: 2^N - 1
-	moves := 1
+	total := 1
 	for i := 0; i < n; i++ {
-		moves *= 2
+		total *= 2
 	}
-	moves--
-	fmt.Fprintln(writer, moves)
+	total--
+	fmt.Fprintln(writer, total)
 
-	// 하노이의 탑 실행 (기둥 1 → 기둥 3, 보조 기둥 2)
-	hanoi(n, 1, 3, 2)
+	moves := make([][2]int, 0, total)
+	hanoi(n, 1, 3, 2, &moves)
+
+	for _, m := range moves {
+		fmt.Fprintf(writer, "%d %d\n", m[0], m[1])
+	}
 }

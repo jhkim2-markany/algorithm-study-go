@@ -6,27 +6,18 @@ import (
 	"os"
 )
 
-// 모듈러 분수의 합
-// 각 분수 a/b를 a * b^(-1) mod M으로 변환하여 합산한다
-// 역원은 페르마 소정리로 b^(M-2) mod M을 계산한다
-
-const MOD = 1000000007
-
-// modPow는 빠른 거듭제곱으로 a^b mod m을 계산한다
-func modPow(a, b, m int64) int64 {
-	a %= m
-	if a < 0 {
-		a += m
-	}
-	result := int64(1)
-	for b > 0 {
-		if b%2 == 1 {
-			result = result * a % m
-		}
-		b /= 2
-		a = a * a % m
-	}
-	return result
+// modFractionSum은 분수 a_i/b_i들의 합을 모듈러 연산으로 계산한다.
+// 각 분수를 a * b^(-1) mod M으로 변환하여 합산한다.
+//
+// [매개변수]
+//   - fractions: 각 원소가 [a, b]인 분수 배열
+//   - mod: 소수인 모듈러 값
+//
+// [반환값]
+//   - int64: 모든 분수의 합 mod M
+func modFractionSum(fractions [][2]int64, mod int64) int64 {
+	// 여기에 코드를 작성하세요
+	return 0
 }
 
 func main() {
@@ -34,24 +25,14 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	// 입력: 분수의 개수
 	var n int
 	fmt.Fscan(reader, &n)
 
-	var sum int64
-
+	fractions := make([][2]int64, n)
 	for i := 0; i < n; i++ {
-		var a, b int64
-		fmt.Fscan(reader, &a, &b)
-
-		// a/b mod M = a * b^(-1) mod M
-		// b의 역원을 페르마 소정리로 계산한다
-		invB := modPow(b, MOD-2, MOD)
-
-		// a * invB를 합산한다
-		term := a % MOD * invB % MOD
-		sum = (sum + term) % MOD
+		fmt.Fscan(reader, &fractions[i][0], &fractions[i][1])
 	}
 
-	fmt.Fprintln(writer, sum)
+	const MOD int64 = 1000000007
+	fmt.Fprintln(writer, modFractionSum(fractions, MOD))
 }
